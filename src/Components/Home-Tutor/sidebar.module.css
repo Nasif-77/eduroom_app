@@ -1,0 +1,22 @@
+.list {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    text-align: center;
+    font-size: x-large;
+}
+
+.list a {
+    width: 100%;
+    text-decoration: none;
+    color: black;
+}
+
+.list a:hover {
+    color: white;
+}
+
+.list li:hover {
+    background-color: rgb(1, 129, 31);
+}

@@ -1,0 +1,25 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+}
+.nav{
+    box-shadow: 1px 0px 10px  rgba(0, 0,0,0.2);
+}
+
+.mainDiv{
+    padding: 50px;
+}
+
+
+
+.table{
+    height: 100%;
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid black;
+    overflow: auto;
+}
+

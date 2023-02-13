@@ -1,0 +1,95 @@
+.container {
+    /* height: 100%; */
+    padding: 10px;
+}
+
+.mainDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.sectionOne {
+    background-color: white;
+    display: grid;
+    justify-content: center;
+    color: blueviolet;
+}
+
+.sectionOne fieldset {
+    border-color: green;
+    padding: 40px;
+}
+
+.sectionOne input {
+    display: block;
+    height: 30px;
+    width: 300px;
+}
+
+#backBtn {
+    background-color: rgb(20, 112, 205);
+    cursor: pointer;
+    width: 200px;
+
+}
+
+#backBtn:hover {
+    background-color: rgb(15, 76, 137);
+}
+
+#backBtn a {
+    text-decoration: none;
+    color: whitesmoke;
+    width: 102%;
+    height: 102%;
+}
+
+
+
+
+
+
+/* @media (max-width:620px) or (max-height:650px) {
+
+  
+
+
+} */
+
+@media (max-width:400px) {
+    .sectionOne fieldset{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .sectionOne input {
+        display: block;
+        height: 15px;
+        width: 150px;
+    }
+
+    .FormControl {
+        display: block;
+        height: 15px;
+        width: 150px;
+        align-self: center;
+    }
+    .InputLabel {
+        align-self: center;
+        display: block;
+        height: 15px;
+        width: 150px;
+    }
+    .Input {
+        display: block;
+        align-self: center;
+        height: 15px;
+        width: 150px;
+    }
+    .FormHelperText{
+        
+        align-self: center;
+    }
+}

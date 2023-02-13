@@ -1,0 +1,94 @@
+.container {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    grid-template: 15% 1fr 1fr/1fr;
+}
+
+.nav {
+    grid-column: 1/-1;
+    text-align: center;
+    box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.2);
+
+}
+
+.mainDiv {
+    padding: 50px;
+}
+
+.div1 button {
+    width: 300px;
+    height: 150px;
+}
+
+.homeDiv {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.homeDiv nav {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.addIcon:hover {
+    cursor: pointer;
+    background-color: rgb(200, 165, 165);
+    color: black;
+}
+
+.closeIcon:hover {
+    cursor: pointer;
+    background-color: lightgray;
+}
+
+.editDiv {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.editDiv nav {
+    width: 100%;
+    display: flex;
+    justify-content: start;
+}
+
+.editDiv form {
+    border: 1px solid black;
+    padding: 30px;
+}
+
+.deleteDiv {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+
+.deleteDiv span{
+    font-size: x-large;
+    color: lightgoldenrodyellow;
+}
+
+
+.deleteDiv div {
+    background-color: rgb(126, 244, 0);
+    padding: 10px;
+}
+
+
+@media (max-width:1500px) {
+
+    .div1 {
+        flex-direction: column;
+    }
+
+}

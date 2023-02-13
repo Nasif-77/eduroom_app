@@ -1,0 +1,16 @@
+.container {
+    width: 100%;
+    height: 100%;
+    grid-template: 1fr/1fr 1fr;
+    background-image: url('/public//Images/wallpaperflare.com_wallpaper.jpg');
+    background-size: 1536px 655px;
+    backdrop-filter: blur(3px);
+    background-repeat: no-repeat;
+
+}
+
+.mainDiv h1 {
+    padding: 0;
+    margin: 0;
+    background-color: beige;
+}

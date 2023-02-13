@@ -1,0 +1,68 @@
+.container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url('/public/Images/wallpaperflare.com_wallpaper.jpg');
+    background-size: 1535px 800px;
+    background-repeat: no-repeat;
+}
+
+
+.container nav {
+    width: 100%;
+    align-self: flex-start;
+    backdrop-filter: blur(18px);
+
+}
+
+
+
+
+.homeDiv {
+    
+    width: 70%;
+    background-color: rgba(0, 0, 0, 0.419);
+    backdrop-filter: blur(8px);
+}
+
+.announcement {
+    color: aliceblue;
+}
+
+.announcement nav {
+    text-align: center;
+    color: lightgrey;
+}
+
+
+.announcementDiv {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background-color: rgb(245, 245, 245, 0.9);
+
+}
+
+
+
+
+.event {
+    color: aliceblue;
+}
+
+.event nav {
+    text-align: center;
+    color: lightgray;
+}
+
+.eventDiv {
+    height: 100%;
+    width: 100%;
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    background-color: rgb(245, 245, 245, 0.9);
+
+}
