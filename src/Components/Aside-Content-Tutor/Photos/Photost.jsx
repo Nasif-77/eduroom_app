@@ -42,7 +42,7 @@ function PhotosT() {
   useEffect(() => {
     const getValues = async () => {
       try {
-        let response = await axios.get("http://localhost:5000/tutor/home/photos")
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`)
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -61,7 +61,7 @@ function PhotosT() {
       for (let i = 0; i < files.length; i++) {
         formData.append('files', files[i])
       }
-      const response = await axios.post("http://localhost:5000/tutor/home/photos", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
       console.log(response)
@@ -81,7 +81,7 @@ function PhotosT() {
         formData.append('files', files[i])
       }
 
-      let response = await axios.put(`http://localhost:5000/tutor/home/photos/${id}`, formData, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
@@ -94,7 +94,7 @@ function PhotosT() {
 
   const deletePhoto = async () => {
     try {
-      let response = await axios.patch(`http://localhost:5000/tutor/home/photos/${id}`, {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         filePath: imagePath,
         fileName: imageName
       })
@@ -107,7 +107,7 @@ function PhotosT() {
 
   const changeSubject = async () => {
     try {
-      let response = await axios.patch(`http://localhost:5000/tutor/home/photos/${id}`, {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         subject: subject
       })
 
@@ -120,7 +120,7 @@ function PhotosT() {
 
   const deleteSubject = async () => {
     try {
-      let response = await axios.delete(`http://localhost:5000/tutor/home/photos/${id}`)
+      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`)
     } catch (error) {
       console.log(error)
     }
@@ -272,7 +272,7 @@ function PhotosT() {
             {images.map((item, index) => {
               return (
                 <div key={index} style={{ marginBottom: '50px' }}>
-                  <img src={`http://localhost:5000/${item.filePath}`} alt="Images" width={500} />
+                  <img src={`${process.env.REACT_APP_SERVER_URL}/${item.filePath}`} alt="Images" width={500} />
                   <br />
 
                   <div>

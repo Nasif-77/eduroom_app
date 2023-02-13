@@ -18,7 +18,7 @@ function AnnouncementsT() {
 
   useEffect(() => {
     const getValue = async () => {
-      let response = await axios.get("http://localhost:5000/tutor/home/announcements")
+      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`)
       setData(response.data)
     }
     getValue()
@@ -41,7 +41,7 @@ function AnnouncementsT() {
       formdata.append('file', file)
       formdata.append('date', date)
 
-      let response = await axios.post("http://localhost:5000/tutor/home/announcements", formdata, {
+      let response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, formdata, {
         headers: { 'Content-Type': "multipart/form-data" }
       })
     } catch (error) {
@@ -53,7 +53,7 @@ function AnnouncementsT() {
 
   const updateAnnouncement = async () => {
     try {
-      let response = await axios.patch("http://localhost:5000/tutor/home/announcements", {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, {
         subject: subject,
         date: date,
         description: description, 
@@ -69,7 +69,7 @@ function AnnouncementsT() {
   const deleteAnnouncement = async () => {
     try {
       console.log(id)
-      let response = await axios.delete(`http://localhost:5000/tutor/home/announcements/${id}`)
+      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`)
 
     } catch (error) {
       console.log(error)
@@ -153,7 +153,7 @@ function AnnouncementsT() {
           <h2>{details.subject}</h2>
           <h5>{details.date}</h5>
           <p>{details.description}</p>
-          <img src={`http://localhost:5000/${details.imageUrl}`} alt="" width={700} />
+          <img src={`${process.env.REACT_APP_SERVER_URL}/${details.imageUrl}`} alt="" width={700} />
         </div> : ''}
 
 

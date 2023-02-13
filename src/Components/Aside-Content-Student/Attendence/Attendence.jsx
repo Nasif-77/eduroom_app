@@ -34,7 +34,7 @@ function Attendence() {
 
     const getAbsentees = async () => {
       try {
-        let response = await axios.get('http://localhost:5000/tutor/home/attendence')
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
         setAbsentees(response.data)
       } catch (error) {
         console.log(error)
@@ -42,7 +42,7 @@ function Attendence() {
     }
 
     const getProfile = async () => {
-      let response = await axios.get('http://localhost:5000/student/home/profile', {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
         params: {
           id: storage.aud
         }

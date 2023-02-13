@@ -23,7 +23,7 @@ function AttendenceT() {
   useEffect(() => {
     const getStudents = async () => {
       try {
-        let response = await axios.get('http://localhost:5000/tutor/home/students')
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
         setStudent(response.data)
       } catch (error) {
         console.log(error)
@@ -32,7 +32,7 @@ function AttendenceT() {
 
     const getAbsentees = async () => {
       try {
-        let response = await axios.get('http://localhost:5000/tutor/home/attendence')
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -85,7 +85,7 @@ function AttendenceT() {
   useEffect(() => {
     if (absentees.selectedRows) {
       const sentData = async () => {
-        const response = await axios.post("http://localhost:5000/tutor/home/attendence", {
+        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`, {
           absentees: absentees
         })
         console.log(response)

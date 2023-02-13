@@ -56,7 +56,7 @@ function LoginTutor() {
     } else {
 
 
-      let result = await fetch("http://localhost:5000/tutor/login", {
+      let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/tutor/login`, {
         method: "POST",
         body: JSON.stringify({ password:values.password, email: fieldEmail }),
         headers: { "Content-Type": "application/json" }

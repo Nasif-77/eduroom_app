@@ -10,7 +10,7 @@ function Assignments() {
   useEffect(() => {
     const getValue = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/student/home/assignments")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`)
         setData(response.data)
         console.log(response.data)
       } catch (error) {
@@ -65,7 +65,7 @@ function Assignments() {
         <div>
             <div>
               <h3>Title:{title}</h3>
-              <a href={`http://localhost:5000/${filePath}`}><h4>Download Assignment:<PictureAsPdfIcon /></h4></a>
+              <a href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}><h4>Download Assignment:<PictureAsPdfIcon /></h4></a>
             </div>
             <div>
               <p>Assignment Details:{description}</p>

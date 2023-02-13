@@ -62,7 +62,7 @@ function SignupTutor() {
   const sentOtp = async () => {
     try {
       setFlag('loading')
-      let result = await axios.post('http://localhost:5000/tutor/otp', {
+      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/otp`, {
         otp: otp,
         fname: formik.values.fname,
         email: formik.values.email,
@@ -106,7 +106,7 @@ function SignupTutor() {
   const sentValue = async (e) => {
     try {
       setFlag('otp')
-      let result = await axios.post("http://localhost:5000/tutor/signup", {
+      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/signup`, {
         contact: formik.values.contact,
         email: formik.values.email
       })

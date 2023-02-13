@@ -16,7 +16,7 @@ function Announcements() {
   useEffect(() => {
     let fetchData = async () => {
       try {
-        let response = await axios.get("http://localhost:5000/student/home/announcements")
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`)
         let data = response.data
         setAnnounce(data)
       } catch (error) {
@@ -85,7 +85,7 @@ function Announcements() {
               </div>
 
               <div>
-              <img src={`http://localhost:5000/${imageUrl}` }alt="" width={600}/>
+              <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}` }alt="" width={600}/>
               </div>
 
             </div>

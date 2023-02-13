@@ -30,7 +30,7 @@ function EventsT() {
     const getValue = async () => {
       setDate(date.$d.toString().slice(4, 15))
       try {
-        const response = await axios.get("http://localhost:5000/tutor/home/events")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`)
         setData(response.data)
       } catch (error) {
 
@@ -50,7 +50,7 @@ function EventsT() {
 
   const fetchValue = async () => {
     try {
-      let response = await axios.post('http://localhost:5000/tutor/home/events', {
+      let response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
         event: event,
         club: club,
         description: description,
@@ -67,7 +67,7 @@ function EventsT() {
 
   const updateEvent = async () => {
     try {
-      let response = await axios.patch("http://localhost:5000/tutor/home/events", {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
         event: event,
         club: club,
         date: date,
@@ -85,7 +85,7 @@ function EventsT() {
   const deleteEvent = async () => {
     try {
       console.log(id)
-      let response = await axios.delete(`http://localhost:5000/tutor/home/events/${id}`)
+      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`)
 
     } catch (error) {
       console.log(error)

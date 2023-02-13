@@ -73,7 +73,7 @@ function SignupStudent() {
   const sentOtp = async () => {
     try {
       setFlag('loading')
-      let result = await axios.post('http://localhost:5000/student/otp', {
+      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/otp`, {
         otp: otp,
         fname: formik.values.fname,
         email: formik.values.email,
@@ -100,7 +100,7 @@ function SignupStudent() {
   const sentValues = async (e) => {
     try {
       setFlag('otp')
-      let result = await axios.post("http://localhost:5000/student/signup", {
+      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/signup`, {
         contact: formik.values.contact,
         email: formik.values.email
       })

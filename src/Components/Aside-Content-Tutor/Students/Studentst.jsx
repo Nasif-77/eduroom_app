@@ -36,7 +36,7 @@ function StudentsT() {
   useEffect(() => {
     const fetchValue = async () => {
       try {
-        let response = await axios.get('http://localhost:5000/tutor/home/students')
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
         let data = response.data
         setStudents(data)
       } catch (error) {
@@ -47,7 +47,7 @@ function StudentsT() {
 
   const blockStudent = async () => {
     try {
-      let response = await axios.patch(`http://localhost:5000/tutor/home/students/${id}`, {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
         blocked: blocked
       })
     } catch (error) {
@@ -74,7 +74,7 @@ function StudentsT() {
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`http://localhost:5000/tutor/home/students/${id}`, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
         name: fname,
         contact: fieldContact,
         email: fieldEmail

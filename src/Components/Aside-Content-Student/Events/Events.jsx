@@ -20,7 +20,7 @@ function Events() {
     useEffect(() => {
         const getValue = async () => {
             try {
-                const response = await axios.get("http://localhost:5000/student/home/events")
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`)
                 setData(response.data)
             } catch (error) {
 

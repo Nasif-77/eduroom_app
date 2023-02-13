@@ -46,7 +46,7 @@ function LoginStudent() {
       Setlogin('Email or password missing')
     }
 
-    let result = await fetch("http://localhost:5000/student/login", {
+    let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/student/login`, {
       method: "POST",
       body: JSON.stringify({ email: fieldEmail, password }),
       headers: { "Content-Type": "application/json" }

@@ -16,7 +16,7 @@ function AssignmentsT() {
   useEffect(() => {
     const getValue = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/tutor/home/assignments")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`)
         setData(response.data)
       } catch (error) {
 
@@ -52,7 +52,7 @@ function AssignmentsT() {
       formData.append('date', date)
       formData.append('title', title)
       formData.append('description', description)
-      const response = await axios.post("http://localhost:5000/tutor/home/assignments", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
@@ -69,7 +69,7 @@ function AssignmentsT() {
   const updateAssignment = async () => {
     try {
 
-      let response = await axios.put(`http://localhost:5000/tutor/home/assignments/${id}`, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, {
         date: date,
         title: title,
         description: description
@@ -85,7 +85,7 @@ function AssignmentsT() {
       const formData = new FormData();
       formData.append('date', date)
       formData.append('file', file)
-      let response = await axios.patch(`http://localhost:5000/tutor/home/assignments/${id}`, formData, {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
     } catch (error) {
@@ -96,7 +96,7 @@ function AssignmentsT() {
 
   const deleteAssignment = async () => {
     try {
-      let response = await axios.delete(`http://localhost:5000/tutor/home/assignments/${id}`)
+      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`)
 
     } catch (error) {
       console.log(error)
@@ -177,7 +177,7 @@ function AssignmentsT() {
           <div>
             <div>
               <h3>Title:{title}</h3>
-              <a href={`http://localhost:5000/${filePath}`}><h4>Download Assignment:<PictureAsPdfIcon /></h4></a>
+              <a href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}><h4>Download Assignment:<PictureAsPdfIcon /></h4></a>
             </div>
             <div>
               <p>Assignment Details:{description}</p>

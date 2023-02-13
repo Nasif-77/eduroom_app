@@ -13,7 +13,7 @@ function Tasks() {
   useEffect(() => {
     const getAssignments = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/student/home/assignments")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`)
         setAssignment(response.data)
       } catch (error) {
 
@@ -21,7 +21,7 @@ function Tasks() {
     }
     const getNotes = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/student/home/notes")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`)
         setNotes(response.data)
       } catch (error) {
 
@@ -150,7 +150,7 @@ function Tasks() {
           <Button onClick={() => setFlag('home')}>Back</Button>
           <h1>{title}</h1>
           <h3>Uploaded Date:Today</h3>
-          <a style={{ textDecoration: 'none' }} href={`http://localhost:5000/${filePath}`}>Download Assignment<PictureAsPdfIcon /></a>
+          <a style={{ textDecoration: 'none' }} href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}>Download Assignment<PictureAsPdfIcon /></a>
 
           <p>Description:{description}</p>
         </div>
@@ -165,7 +165,7 @@ function Tasks() {
           <Button onClick={() => setFlag('home')}>Back</Button>
           <h1>{title}</h1>
           <h3>Uploaded Date:Today</h3>
-          <a style={{ textDecoration: 'none' }} href={`http://localhost:5000/${filePath}`}>Download Note<PictureAsPdfIcon /></a>
+          <a style={{ textDecoration: 'none' }} href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}>Download Note<PictureAsPdfIcon /></a>
 
           <p>Description:{description}</p>
         </div>

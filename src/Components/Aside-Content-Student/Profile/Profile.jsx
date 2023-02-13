@@ -36,7 +36,7 @@ function Profile() {
   useEffect(() => {
 
     const getProfile = async () => {
-      let response = await axios.get('http://localhost:5000/student/home/profile', {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
         params: {
           id: storage.aud
         }
@@ -79,7 +79,7 @@ function Profile() {
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`http://localhost:5000/student/home/profile/${id}`, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/student/home/profile/${id}`, {
         name: formik.values.fname,
         contact: formik.values.contact,
         email: formik.values.email

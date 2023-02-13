@@ -33,7 +33,7 @@ function ProfileT() {
   useEffect(() => {
 
     const getProfile = async () => {
-      let response = await axios.get('http://localhost:5000/tutor/home/profile', {
+      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile`, {
         params: {
           id: profile.aud
         }
@@ -49,7 +49,7 @@ function ProfileT() {
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`http://localhost:5000/tutor/home/profile/${id}`, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile/${id}`, {
         name: fname,
         contact: contact,
         email: fieldEmail

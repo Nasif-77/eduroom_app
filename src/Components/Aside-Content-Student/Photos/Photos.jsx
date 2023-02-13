@@ -16,7 +16,7 @@ function Photos() {
   useEffect(() => {
     const getPhotos = async () => {
       try {
-        let response = await axios.get("http://localhost:5000/student/home/photos")
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/photos`)
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -75,7 +75,7 @@ function Photos() {
                 return (
                   <ImageListItem key={item.filePath}>
                     <img
-                      src={`http://localhost:5000/${item.filePath}`}
+                      src={`${process.env.REACT_APP_SERVER_URL}/${item.filePath}`}
                       srcSet={`${item.filePath}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
                       alt={'Cars'}
                       loading="lazy"

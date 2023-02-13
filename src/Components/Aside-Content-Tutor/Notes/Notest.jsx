@@ -18,7 +18,7 @@ function NotesT() {
   useEffect(() => {
     const getValue = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/tutor/home/notes")
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`)
         setData(response.data)
       } catch (error) {
 
@@ -50,7 +50,7 @@ function NotesT() {
       formData.append('title', title)
       formData.append('description', description)
       formData.append('file', file)
-      const response = await axios.post("http://localhost:5000/tutor/home/notes", formData, {
+      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
@@ -64,7 +64,7 @@ function NotesT() {
 
   const updateNotes = async () => {
     try {
-      let response = await axios.put(`http://localhost:5000/tutor/home/notes/${id}`, {
+      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, {
         title:title,
         description:description,
         date:date
@@ -80,7 +80,7 @@ function NotesT() {
       const formData = new FormData();
       formData.append('date', date)
       formData.append('file', file)
-      let response = await axios.patch(`http://localhost:5000/tutor/home/notes/${id}`, formData, {
+      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
     } catch (error) {
@@ -92,7 +92,7 @@ function NotesT() {
   const deleteNotes = async () => {
     try {
       console.log(id)
-      let response = await axios.delete(`http://localhost:5000/tutor/home/notes/${id}`)
+      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`)
       console.log(response)
 
     } catch (error) {
@@ -175,7 +175,7 @@ function NotesT() {
           <div>
             <div>
               <h3>Title:{title}</h3>
-              <a href={`http://localhost:5000/${filePath}`}><h4>Download Note:<PictureAsPdfIcon /></h4></a>
+              <a href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}><h4>Download Note:<PictureAsPdfIcon /></h4></a>
             </div>
             <div>
               <p>Assignment Details:{description}</p>
