@@ -7,6 +7,15 @@
     height: 100%;
 }
 
+.div1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.div1 h1{
+    margin-right: 15em;
+}
+
 .div2{
     display: flex;
     justify-content: flex-end;
@@ -14,12 +23,14 @@
 }
 .div2 button{
     height: 40px;
-    width: 200px;
+    width: 180px;
     font-size: x-large;
     font-weight: bold;
     background-color: black;
     color: white;
     cursor: pointer;    
+    margin-right: 1em;
+    margin-top: 1em;
 }
 .div2 button:hover{
     color: black;
@@ -28,6 +39,8 @@
 
 .DehazeIcon{
     color: white;
+    align-self: center;
+    margin-left: 3em;
 }
 
 .DehazeIcon:hover{

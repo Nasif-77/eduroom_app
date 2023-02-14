@@ -93,7 +93,7 @@ function AnnouncementsT() {
 
 
             <h3>Description</h3>
-            <textarea name="" id="" cols="50" rows="5" required={true} onChange={(e) => { setDescription(e.target.value) }} ></textarea>
+            <Textarea sx={{width:'74ch'}} required={true} onChange={(e) => { setDescription(e.target.value) }} ></Textarea>
             <h4>Attatchments</h4>
             <Button
               sx={{ background: '#009688' }} variant="contained" component="label" >Upload File

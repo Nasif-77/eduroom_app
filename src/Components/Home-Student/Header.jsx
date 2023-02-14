@@ -31,14 +31,14 @@ function Header() {
     <div className={classes.Header}>
 
       <div className={classes.div1}>
-        <h2 style={{ color: "white" }}>Hi <span style={{ color: 'blanchedalmond', fontFamily: 'serif', fontSize: 30 }}>{fullname}</span></h2>
+        <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
+        <h1 style={{ color: "white" }}>Hi <span style={{ color: 'blanchedalmond', fontFamily: 'serif', fontSize: 30 }}>{fullname}</span></h1>
       </div>
       <div className={classes.div2}>
         <Link to='/student/login'>
           <Button onClick={logout}>Log Out</Button>
         </Link>
       </div>
-      <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
 
       <Drawer
         anchor='left'
@@ -47,8 +47,8 @@ function Header() {
       >
         <Box
           sx={{ width: 250 }}
-          onClick={()=>setDrawer(false)}
-          onKeyDown={()=>setDrawer(false)}
+          onClick={() => setDrawer(false)}
+          onKeyDown={() => setDrawer(false)}
         > <Sidebar /></Box>
 
       </Drawer>

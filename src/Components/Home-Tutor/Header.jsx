@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import classes from './header.module.css'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import Sidebar from './Sidebar';
-import { Drawer } from '@mui/material';
+import { Button, Drawer } from '@mui/material';
 import Box from '@mui/material/Box';
 
 
@@ -23,15 +23,20 @@ function Header() {
 
   return (
     <div className={classes.Header}>
+
       <div className={classes.div1}>
+
+        <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
+        
         <h1>Hello <Link to={'profile'}>{fullname}</Link></h1>
+
       </div>
+      
       <div className={classes.div2}>
         <Link to={'/tutor/login'}>
-          <button onClick={logout}>Log Out</button>
+          <Button onClick={logout}>Log Out</Button>
         </Link>
       </div>
-      <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
 
       <Drawer
         anchor='left'

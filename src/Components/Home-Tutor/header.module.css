@@ -1,17 +1,26 @@
 .Header {
     height: 100%;
     display: grid;
-    background-color: darkgray;
+    background-color: darkcyan;
     grid-template: 1fr/1fr 1fr;
     justify-content: space-between;
     align-content: space-between;
     width: 100%;
 }
 
+.div1 {
+    display: flex;
+    justify-content: space-between;
+}
+
 .div1,
 .div1 a {
     text-decoration: none;
     color: white;
+}
+
+.div1 h1{
+    margin-right: 10em;
 }
 
 .div2 {
@@ -22,13 +31,19 @@
 
 .div2 button {
     height: 40px;
-    width: 200px;
+    width: 180px;
     font-size: x-large;
     font-weight: bold;
     background-color: black;
-    border: 1px solid;
+    border-radius: 15px ;
     color: white;
     cursor: pointer;
+    margin-right: 1em;
+    margin-top: 1em;
+}
+
+.div2 button,a {
+    text-decoration: none;
 }
 
 .div2 button:hover {
@@ -38,6 +53,8 @@
 
 .DehazeIcon {
     color: white;
+    align-self: center;
+    margin-left: 2em;
 }
 
 .DehazeIcon:hover {
