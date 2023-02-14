@@ -115,10 +115,6 @@ function LoginTutor() {
       />
         <br />
         <Button variant='contained' type='button' className={classes.button} onClick={sentValue}>login</Button>
-        <p style={{ color: 'red', fontWeight: 'bold' }}>{login}</p>
-        <p className={classes.p}>Don't have an account? <br />
-          <Link to="/tutor/signup"><Button variant='contained' color='success'>sign up</Button></Link>
-        </p>
       </form>
     </div>
   )

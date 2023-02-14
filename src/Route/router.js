@@ -3,7 +3,7 @@ import LandingPage from '../Pages/Landing Page/LandingPage';
 import LoginStudent from '../Pages/Login/LoginStudent';
 import LoginTutor from '../Pages/Login/LoginTutor';
 import SignupStudent from '../Pages/Signup/SignupStudent';
-import SignupTutor from '../Pages/Signup/SignupTutor';
+// import SignupTutor from '../Pages/Signup/SignupTutor';
 //Student
 import HomeStudent from '../Pages/Home-Student/HomeStudent';
 import HomeTutor from '../Pages/Home-Tutor/HomeTutor';
@@ -33,7 +33,7 @@ export const browserRouter = createBrowserRouter([
     { path: 'student/login', element: <LoginStudent /> },
     { path: 'tutor/login', element: <LoginTutor /> },
     { path: 'student/signup', element: <SignupStudent /> },
-    { path: 'tutor/signup', element: <SignupTutor /> },
+    
     {
       path: 'student/home', element: <HomeStudent />, children: [
         { path: 'home', element: <Home/> },
