@@ -1,5 +1,5 @@
 import {
-  Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle,
+  Button, Dialog, DialogActions, DialogTitle,
   TableContainer, Table, TableHead, TableBody, TableRow, TextField, TableCell
 } from '@mui/material'
 import axios from 'axios'
@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import classes from './students.module.css'
 import StudentProfile from './StudentProfile'
-import CloseIcon from '@mui/icons-material/Close';
 
 function StudentsT() {
 
@@ -47,7 +46,7 @@ function StudentsT() {
 
   const blockStudent = async () => {
     try {
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
         blocked: blocked
       })
     } catch (error) {
@@ -74,7 +73,7 @@ function StudentsT() {
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
         name: fname,
         contact: fieldContact,
         email: fieldEmail
@@ -132,7 +131,7 @@ function StudentsT() {
                       }} color='success' style={{ color: 'white' }}>Edit</Button>
 
                       {item.blocked ? <>
-                        <Button variant='contained' sx={{ marginLeft: "15px",width:'8em' }} onClick={() => {
+                        <Button variant='contained' sx={{ marginLeft: "15px", width: '8em' }} onClick={() => {
                           setId(item._id)
                           setBlocked(false)
                           handleClickOpen()
@@ -154,7 +153,7 @@ function StudentsT() {
                           </DialogActions>
                         </Dialog>
                       </> : <>
-                        <Button variant='contained' sx={{ marginLeft: "15px" ,width:'8em'}} onClick={() => {
+                        <Button variant='contained' sx={{ marginLeft: "15px", width: '8em' }} onClick={() => {
                           setId(item._id)
                           setBlocked(true)
                           handleClickOpen()

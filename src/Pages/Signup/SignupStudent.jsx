@@ -3,15 +3,15 @@ import classes from './signup.module.css'
 import { Link, useNavigate } from 'react-router-dom';
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, FormHelperText } from '@mui/material';
+import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, FormHelperText, Box, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { Formik, Form, Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { BallTriangle } from 'react-loader-spinner';
-import {validationSchema} from '../../Validation/Validation'
-import Grid2 from '@mui/material/Unstable_Grid2/Grid2';
+import { validationSchema } from '../../Validation/Validation'
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 
@@ -20,12 +20,10 @@ function SignupStudent() {
   const navigate = useNavigate();
 
 
-  const [fieldEmail, setEmail] = useState('');
   const [fieldPosition] = useState('student');
   const [blocked] = useState(false);
   const [otp, setOtp] = useState('')
   const [flag, setFlag] = useState('home')
-  const [check, setCheck] = useState('')
   const [showPassword, setShowPassword] = useState(false);
   const [showCPassword, setShowCPassword] = useState(false);
 
@@ -44,7 +42,7 @@ function SignupStudent() {
 
 
 
-  
+
 
   const formik = useFormik({
     initialValues: {
@@ -100,7 +98,7 @@ function SignupStudent() {
   const sentValues = async (e) => {
     try {
       setFlag('otp')
-      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/signup`, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/signup`, {
         contact: formik.values.contact,
         email: formik.values.email
       })
@@ -119,154 +117,177 @@ function SignupStudent() {
 
     <div className={classes.container}>
 
-      <div className={classes.mainDiv}>
 
-        {flag === 'home' ? <section className={classes.sectionOne}>
+      {flag === 'home' ? <section className={classes.sectionOne}>
 
-          <Button id={classes["backBtn"]}><Link to={'/student/login'}>Back</Link></Button>
+        <IconButton id={classes["backBtn"]}><Link to={'/student/login'}><ArrowBackIcon color='info' fontSize='large' /></Link></IconButton>
 
-          <form className={classes.form} action=" " onSubmit={formik.handleSubmit}  >
+        <form action=" " onSubmit={formik.handleSubmit}  >
 
-            <fieldset>
+          <Box
+            className={classes.form}
+            display={'flex'}
+            flexDirection='column'
+            margin={'auto'}
+            padding={5}
+            borderRadius={10}
+          >
 
-              <legend><center><h2><b>Sign Up</b></h2></center></legend><br />
 
-              <TextField label='Full Name'
-                name='fname'
-                id='fname'
-                variant='standard'
-                value={formik.values.fname}
-                error={formik.touched.fname && Boolean(formik.errors.fname)}
-                helperText={formik.touched.fname && formik.errors.fname}
+
+            <TextField label='Full Name'
+              name='fname'
+              id='fname'
+              variant='standard'
+              value={formik.values.fname}
+              error={formik.touched.fname && Boolean(formik.errors.fname)}
+              helperText={formik.touched.fname && formik.errors.fname}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+
+            <br />
+            <TextField
+              label='Email'
+              name='email'
+              id='email'
+              type={'email'}
+              variant='standard'
+              value={formik.values.email}
+              error={formik.touched.email && Boolean(formik.errors.email)}
+              helperText={formik.touched.email && formik.errors.email}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
+            <br />
+
+            <FormControl className={classes.FormControl} sx={{ width: '35ch' }} variant="standard">
+              <InputLabel className={classes.InputLabel} htmlFor="standard-adornment-password">Password</InputLabel>
+              <Input
+                className={classes.Input}
+                name='password'
+                id='password'
+                value={formik.values.password}
+                error={formik.touched.password && Boolean(formik.errors.password)}
+                onBlur={formik.handleBlur}
+                onChange={formik.handleChange}
+                type={showPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+              />
+              <FormHelperText className={classes.FormHelperText} sx={{ color: 'red' }}>{formik.touched.password && formik.errors.password}</FormHelperText>
+            </FormControl>
+
+            <br />
+
+            <FormControl className={classes.FormControl} sx={{ width: '35ch' }} variant="standard">
+              <InputLabel className={classes.InputLabel} htmlFor="standard-adornment-password">Confirm Password</InputLabel>
+              <Input
+                className={classes.Input}
+                name='confirmPassword'
+                id="confirmPassword"
+                value={formik.values.confirmPassword}
+                error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
                 onChange={formik.handleChange}
                 onBlur={formik.handleBlur}
+                type={showCPassword ? 'text' : 'password'}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowCPassword}
+                      onMouseDown={handleMouseDownCPassword}
+                    >
+                      {showCPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
               />
-
-              <br />
-              <TextField
-                label='Email'
-                name='email'
-                id='email'
-                type={'email'}
-                variant='standard'
-                value={formik.values.email}
-                error={formik.touched.email && Boolean(formik.errors.email)}
-                helperText={formik.touched.email && formik.errors.email}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
-              <br />
-
-              <FormControl className={classes.FormControl} sx={{ width: '35ch' }} variant="standard">
-                <InputLabel className={classes.InputLabel} htmlFor="standard-adornment-password">Password</InputLabel>
-                <Input
-                  className={classes.Input}
-                  name='password'
-                  id='password'
-                  value={formik.values.password}
-                  error={formik.touched.password && Boolean(formik.errors.password)}
-                  onBlur={formik.handleBlur}
-                  onChange={formik.handleChange}
-                  type={showPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowPassword}
-                        onMouseDown={handleMouseDownPassword}
-                      >
-                        {showPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <FormHelperText className={classes.FormHelperText} sx={{ color: 'red' }}>{formik.touched.password && formik.errors.password}</FormHelperText>
-              </FormControl>
-
-              <br />
-
-              <FormControl className={classes.FormControl} sx={{ width: '35ch' }} variant="standard">
-                <InputLabel className={classes.InputLabel} htmlFor="standard-adornment-password">Confirm Password</InputLabel>
-                <Input
-                  className={classes.Input}
-                  name='confirmPassword'
-                  id="confirmPassword"
-                  value={formik.values.confirmPassword}
-                  error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  type={showCPassword ? 'text' : 'password'}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton
-                        aria-label="toggle password visibility"
-                        onClick={handleClickShowCPassword}
-                        onMouseDown={handleMouseDownCPassword}
-                      >
-                        {showCPassword ? <VisibilityOff /> : <Visibility />}
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-                <FormHelperText  sx={{ color: 'red' }}>{formik.touched.confirmPassword && formik.errors.confirmPassword}</FormHelperText>
-              </FormControl>
+              <FormHelperText sx={{ color: 'red' }}>{formik.touched.confirmPassword && formik.errors.confirmPassword}</FormHelperText>
+            </FormControl>
 
 
 
-              <p style={{ color: 'red' }}>{check}</p>
 
-              <TextField
-                type={'number'}
-                label={'Contact No:'}
-                variant='standard'
-                name='contact'
-                id='contact'
-                value={formik.values.contact}
-                error={formik.touched.contact && Boolean(formik.errors.contact)}
-                helperText={formik.touched.contact && formik.errors.contact}
-                onChange={formik.handleChange}
-                onBlur={formik.handleBlur}
-              />
+            <TextField
+              type={'number'}
+              label={'Contact No:'}
+              variant='standard'
+              name='contact'
+              id='contact'
+              value={formik.values.contact}
+              error={formik.touched.contact && Boolean(formik.errors.contact)}
+              helperText={formik.touched.contact && formik.errors.contact}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+            />
 
-              <br /><br /><br />
-              <Button type='submit' >Create Account</Button>
+            <br /><br /><br />
+            <Button type='submit' variant='contained' >Create Account</Button>
 
-            </fieldset>
-
-          </form>
-
-        </section> : ''}
+          </Box>
 
 
-        {flag === 'otp' ? <div>
-          <form action="">
-            <h1>Enter the otp</h1>
-            <Input type={'number'} placeholder={'******'} onChange={(e) => setOtp(e.target.value)} />
+        </form>
+
+      </section> : ''}
+
+
+      {flag === 'otp' ?
+
+        <form action="">
+          <Box
+            display={'flex'}
+            flexDirection='column'
+            alignItems={'center'}
+            maxWidth={300}
+            margin="auto"
+            justifyContent={'center'}
+            padding={10}
+            boxShadow={"5px 5px 10px #ccc"}
+            sx={{
+              backgroundColor: 'rgb(249, 244, 205)',
+              ":hover": {
+                boxShadow: "10px 10px 20px #ccc"
+              }
+            }}
+          >
+            <Typography variant='h5'>Enter the otp</Typography>
+
+            <TextField variant='standard' type={'number'} placeholder={'******'} onChange={(e) => setOtp(e.target.value)} />
             <br />
             <Button onClick={sentOtp}>Submit</Button>
-          </form>
-        </div> : ''}
+          </Box>
+        </form>
+        : ''}
 
 
-        {flag === 'loading' ? <div>
-          <BallTriangle
-            height={100}
-            width={100}
-            radius={5}
-            color="#4fa94d"
-            ariaLabel="ball-triangle-loading"
-            wrapperClass={{}}
-            wrapperStyle=""
-            visible={true}
-          />
+      {flag === 'loading' ? <div>
+        <BallTriangle
+          height={100}
+          width={100}
+          radius={5}
+          color="#4fa94d"
+          ariaLabel="ball-triangle-loading"
+          wrapperClass={{}}
+          wrapperStyle=""
+          visible={true}
+        />
 
-          <h3>Please wait....</h3>
-        </div> : ''}
+        <h3>Please wait....</h3>
+      </div> : ''}
 
-        <div>
-          <ToastContainer />
-        </div>
-
+      <div>
+        <ToastContainer />
       </div>
 
 

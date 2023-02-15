@@ -1,5 +1,5 @@
 import { Textarea } from '@mui/joy';
-import { Button, Table, TableBody, TableCell, TableHead, TableRow, TextareaAutosize, TextField } from '@mui/material';
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, TextField } from '@mui/material';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import classes from './announcement.module.css'
@@ -28,9 +28,8 @@ function AnnouncementsT() {
   let month = date.split(' ')[1]
   let year = date.split(' ')[3]
   let day = date.split(' ')[2]
-  date = [month,day,year].join(' ')
+  date = [month, day, year].join(' ')
 
-  console.log(date)
 
 
   const sentValue = async () => {
@@ -41,11 +40,10 @@ function AnnouncementsT() {
       formdata.append('file', file)
       formdata.append('date', date)
 
-      let response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, formdata, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, formdata, {
         headers: { 'Content-Type': "multipart/form-data" }
       })
     } catch (error) {
-      console.log(error)
     }
 
   }
@@ -53,13 +51,12 @@ function AnnouncementsT() {
 
   const updateAnnouncement = async () => {
     try {
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, {
         subject: subject,
         date: date,
-        description: description, 
+        description: description,
         id: id
       })
-      console.log(response)
     } catch (error) {
 
     }
@@ -68,11 +65,9 @@ function AnnouncementsT() {
 
   const deleteAnnouncement = async () => {
     try {
-      console.log(id)
-      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -93,7 +88,7 @@ function AnnouncementsT() {
 
 
             <h3>Description</h3>
-            <Textarea sx={{width:'74ch'}} required={true} onChange={(e) => { setDescription(e.target.value) }} ></Textarea>
+            <Textarea sx={{ width: '74ch' }} required={true} onChange={(e) => { setDescription(e.target.value) }} ></Textarea>
             <h4>Attatchments</h4>
             <Button
               sx={{ background: '#009688' }} variant="contained" component="label" >Upload File
@@ -123,8 +118,6 @@ function AnnouncementsT() {
               {data.map((element, index) => {
                 let date = element.date
                 let subject = element.subject
-                let description = element.description
-                let imageurl = element.imageUrl
                 return (
                   <TableRow key={index}>
                     <TableCell>{date}</TableCell>
@@ -148,7 +141,7 @@ function AnnouncementsT() {
 
 
 
-        {flag == 'details' ? <div className={classes.detailsDiv}>
+        {flag === 'details' ? <div className={classes.detailsDiv}>
           <Button onClick={() => setFlag('all')}>Back</Button>
           <h2>{details.subject}</h2>
           <h5>{details.date}</h5>

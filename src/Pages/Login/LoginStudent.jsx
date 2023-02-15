@@ -5,10 +5,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import classes from './login.module.css'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField } from '@mui/material';
+import { Box, Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, Typography } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function LoginStudent() {
   const navigate = useNavigate()
@@ -66,8 +67,8 @@ function LoginStudent() {
       toast.error("Your account is blocked!");
     }
     const token = await jwtDecode(result.token)
-    let {  name,position,aud } = token
-    let user = { name,position,aud }
+    let { name, position, aud } = token
+    let user = { name, position, aud }
 
     if (user.position === 'student') {
 
@@ -80,42 +81,56 @@ function LoginStudent() {
   }
 
   return (
+
     <div className={classes.login}>
-      
-      <Link className={classes.backBtn} to={'/'}><Button variant='contained' color='inherit' >Back</Button></Link>
 
-      <form action="" className={classes.form}>
+      <Link className={classes.backBtn} to={'/'}><IconButton color='success' ><ArrowBackIcon fontSize='large' /></IconButton></Link>
 
-        <h1 className={classes.h1} htmlFor=""><strong><i>LOGIN STUDENT</i></strong></h1>
+      <form action="" >
 
-        <TextField label={'E-mail'} sx={{ m: 1, width: '30ch' }}  onChange={(e) => setEmail(e.target.value)} variant='standard' />
+        <Box
+          className={classes.form}
+          display={'flex'}
+          flexDirection={'column'}
+          maxWidth={300}
+          margin={'auto'}
+          padding={10}
+        >
 
-        <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            onChange={(e) => setPassword(e.target.value)}
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl>
+          <Typography variant='h4' fontWeight={'bold'}>
+            LOGIN
+          </Typography>
 
-        <Button variant='contained' type='button' endIcon={<LoginIcon />} onClick={sentValue} className={classes.button}>login</Button>
-        <br />
+          <TextField label={'E-mail'} type={'email'} sx={{ m: 1, width: '30ch' }}
+              onChange={(e) => setEmail(e.target.value)} variant='standard' />
 
-        <p style={{ color: 'red', fontWeight: 'bold' }}>{login}</p>
+          <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
+            <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+            <Input
+              id="standard-adornment-password"
+              onChange={(e) => setPassword(e.target.value)}
+              type={showPassword ? 'text' : 'password'}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
 
-        <p className={classes.p}>Don't have an account? <Link to="/student/signup"><Button variant='outlined'>sign up</Button></Link></p>
+          <Button sx={{ marginTop: '2ch' }} variant='contained' color='success' type='button' endIcon={<LoginIcon />} onClick={sentValue} >login</Button>
+          <br />
+
+          <p style={{ color: 'red', textAlign: 'center' }}>{login}</p>
+
+          <p className={classes.p}>Don't have an account? <Link to="/student/signup"><Button size='large' sx={{ fontWeight: '900', padding: '0px', textTransform: 'inherit' }} variant='text'>Sign up</Button></Link></p>
+        </Box>
 
       </form>
 

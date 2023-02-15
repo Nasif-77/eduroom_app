@@ -1,9 +1,9 @@
-import React, { Children, useEffect } from 'react'
+import React, {  useEffect } from 'react'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import Header from '../../Components/Home-Student/Header'
 import classes from './styles.module.css'
 
-function HomeStudent({children}) {
+function HomeStudent() {
   
   const navigate = useNavigate()
   const loc = useLocation();
@@ -18,7 +18,6 @@ function HomeStudent({children}) {
     }
   })
 
- const location= useLocation()
   return (
     <div className={classes.mainDiv}>
         <div className={classes.Header}>

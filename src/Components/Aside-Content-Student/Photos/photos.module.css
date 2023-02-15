@@ -16,6 +16,11 @@
 }
 
 
+.imagesDiv img{
+    width: 100%;
+    height: auto;
+}
+
 .ListItemButton:hover {
     color: black;
 }

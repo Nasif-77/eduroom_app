@@ -57,7 +57,7 @@
 .editDiv nav {
     width: 100%;
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
 }
 
 .editDiv form {

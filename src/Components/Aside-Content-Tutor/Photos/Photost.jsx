@@ -4,7 +4,6 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import classes from './photos.module.css'
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
-import { color } from '@mui/system';
 function PhotosT() {
 
   const [files, setFiles] = useState([])
@@ -45,7 +44,6 @@ function PhotosT() {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`)
         setData(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
     getValues();
@@ -61,13 +59,11 @@ function PhotosT() {
       for (let i = 0; i < files.length; i++) {
         formData.append('files', files[i])
       }
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, formData, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
-      console.log(response)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -81,11 +77,10 @@ function PhotosT() {
         formData.append('files', files[i])
       }
 
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, formData, {
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
-      console.log(response)
     } catch (error) {
 
     }
@@ -94,12 +89,11 @@ function PhotosT() {
 
   const deletePhoto = async () => {
     try {
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         filePath: imagePath,
         fileName: imageName
       })
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -107,7 +101,7 @@ function PhotosT() {
 
   const changeSubject = async () => {
     try {
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         subject: subject
       })
 
@@ -120,9 +114,8 @@ function PhotosT() {
 
   const deleteSubject = async () => {
     try {
-      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`)
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -305,7 +298,6 @@ function PhotosT() {
           : ''}
 
 
-        {/* <button onClick={() => console.log(images)}>HI</button> */}
 
       </div>
 

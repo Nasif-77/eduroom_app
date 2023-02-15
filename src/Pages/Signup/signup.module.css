@@ -1,95 +1,45 @@
 .container {
-    /* height: 100%; */
-    padding: 10px;
-}
-
-.mainDiv {
     display: flex;
-    justify-content: center;
     align-items: center;
-
+    justify-content: center;
+    height: 100%;
 }
 
 .sectionOne {
     background-color: white;
-    display: grid;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
-    color: blueviolet;
+    padding: auto;
 }
 
-.sectionOne fieldset {
-    border-color: green;
-    padding: 40px;
-}
+.form {
+    background-color: rgb(232, 245, 255);
 
-.sectionOne input {
-    display: block;
-    height: 30px;
-    width: 300px;
 }
 
 #backBtn {
-    background-color: rgb(20, 112, 205);
-    cursor: pointer;
-    width: 200px;
-
-}
-
-#backBtn:hover {
-    background-color: rgb(15, 76, 137);
-}
-
-#backBtn a {
-    text-decoration: none;
-    color: whitesmoke;
-    width: 102%;
-    height: 102%;
+    margin-right: 15em;
+    margin-top: 1em;
 }
 
 
 
 
 
-
-/* @media (max-width:620px) or (max-height:650px) {
-
-  
-
-
-} */
 
 @media (max-width:400px) {
-    .sectionOne fieldset{
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-    .sectionOne input {
-        display: block;
-        height: 15px;
-        width: 150px;
+
+
+    .form {
+        margin-left: 50vw;  
     }
 
-    .FormControl {
-        display: block;
-        height: 15px;
-        width: 150px;
-        align-self: center;
+    #backBtn {
+        margin-right: 10em;
+        margin-top: 1em;
     }
-    .InputLabel {
-        align-self: center;
-        display: block;
-        height: 15px;
-        width: 150px;
-    }
-    .Input {
-        display: block;
-        align-self: center;
-        height: 15px;
-        width: 150px;
-    }
-    .FormHelperText{
-        
-        align-self: center;
-    }
+
+
 }

@@ -1,5 +1,4 @@
 import { Button, ImageList, ImageListItem, List, ListItem, ListItemButton } from '@mui/material'
-import { makeStyles } from '@mui/material/styles'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './photos.module.css'
@@ -19,7 +18,6 @@ function Photos() {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/photos`)
         setData(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
     getPhotos();
@@ -69,7 +67,8 @@ function Photos() {
             <ImageList
               sx={{ width: 'auto', height: 'auto' }}
               variant='quilted'
-              cols={3} rowHeight={214}>
+              cols={2} 
+              >
 
               {images.map((item, index) => {
                 return (
@@ -77,7 +76,7 @@ function Photos() {
                     <img
                       src={`${process.env.REACT_APP_SERVER_URL}/${item.filePath}`}
                       srcSet={`${item.filePath}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-                      alt={'Cars'}
+                      alt={subject}
                       loading="lazy"
                     />
                   </ImageListItem>

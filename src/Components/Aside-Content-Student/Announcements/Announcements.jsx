@@ -1,7 +1,6 @@
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import classes from './announcements.module.css'
 
 function Announcements() {
@@ -20,12 +19,11 @@ function Announcements() {
         let data = response.data
         setAnnounce(data)
       } catch (error) {
-        console.log(error)
       }
 
     }
     fetchData()
-  }, [])
+  })
 
 
   return (
@@ -85,7 +83,7 @@ function Announcements() {
               </div>
 
               <div>
-              <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}` }alt="" width={600}/>
+              <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}` }alt=""/>
               </div>
 
             </div>

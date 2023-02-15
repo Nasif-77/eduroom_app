@@ -37,7 +37,6 @@ function Attendence() {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
         setAbsentees(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
 
@@ -52,14 +51,15 @@ function Attendence() {
     getProfile()
     getAbsentees();
 
-  }, [])
+  },[storage.aud])  
 
 
 
-  useEffect(() => {
+
+  useEffect(() => {  
     if (absentees.length !== 0) {
-      absentees.map((absentee, item) => {
-        absentee.absentees.selectedRows.map((student, index) => {
+      absentees.forEach((absentee, item) => {
+        absentee.absentees.selectedRows.forEach((student, index) => {
           if (student === name) {
             setTotalAbsent(totalAbsent++)
           }

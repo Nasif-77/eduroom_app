@@ -24,7 +24,6 @@ function EventsT() {
 
 
 
-  console.log(date)
 
   useEffect(() => {
     const getValue = async () => {
@@ -37,7 +36,7 @@ function EventsT() {
       }
     }
     getValue();
-  }, [])
+  })
 
 
   const handleChange = (newValue) => {
@@ -46,19 +45,16 @@ function EventsT() {
     setDate(newValue.$d.toString().slice(3, 15))
   };
 
-  console.log(date)
 
   const fetchValue = async () => {
     try {
-      let response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
         event: event,
         club: club,
         description: description,
         date: date
       })
-      console.log(response)
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -67,14 +63,13 @@ function EventsT() {
 
   const updateEvent = async () => {
     try {
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
         event: event,
         club: club,
         date: date,
         description: description,
         id: id
       })
-      console.log(response)
     } catch (error) {
 
     }
@@ -84,11 +79,9 @@ function EventsT() {
 
   const deleteEvent = async () => {
     try {
-      console.log(id)
-      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -122,7 +115,7 @@ function EventsT() {
                 required={true}
                 onChange={(newValue) => {
                   setValue(newValue);
-                  setDate(newValue===null? date : newValue.$d.toString().slice(3, 15))
+                  setDate(newValue === null ? date : newValue.$d.toString().slice(3, 15))
                 }}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -177,7 +170,7 @@ function EventsT() {
 
 
 
-        {flag == 'details' ? <div>
+        {flag === 'details' ? <div>
           <Button onClick={() => setFlag('all')}>Back</Button>
           <h2>Event:{details.event}</h2>
           <h2>Club:{details.club}</h2>
@@ -216,7 +209,7 @@ function EventsT() {
         {flag === 'delete' ? <div>
           <form onSubmit={deleteEvent}>
 
-            <p>the following announcement would be deleted {details.event}</p>
+            <p>the following announcement would be deleted permanently:{details.event}</p>
             <br /><br />
             <Button variant='contained' onClick={() => setFlag('all')}>Cancel</Button>
             <Button variant='contained' color='error' type='submit'>Ok</Button>

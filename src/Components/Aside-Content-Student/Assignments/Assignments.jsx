@@ -12,7 +12,6 @@ function Assignments() {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`)
         setData(response.data)
-        console.log(response.data)
       } catch (error) {
 
       }
@@ -27,7 +26,6 @@ function Assignments() {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
-  console.log(data)
 
 
   return (

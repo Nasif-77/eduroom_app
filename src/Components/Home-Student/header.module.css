@@ -48,3 +48,23 @@
     border-radius: 2px;
     background-color: rgba(35, 222, 255, 0.226);
 }
+
+@media (max-width:900px){
+.div1 h1{
+    display: none;
+}
+
+
+}
+
+@media (max-width:400px){
+.div1 h1{
+    display: none;
+}
+
+.div2 button{
+    width: 120px;
+    font-size: large;
+}
+
+}

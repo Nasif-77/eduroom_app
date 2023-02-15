@@ -6,7 +6,6 @@ import { useEffect } from 'react';
 import axios from 'axios';
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Checkbox } from '@mui/joy';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 
 function AttendenceT() {
@@ -26,7 +25,6 @@ function AttendenceT() {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
         setStudent(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
 
@@ -35,7 +33,6 @@ function AttendenceT() {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
         setData(response.data)
       } catch (error) {
-        console.log(error)
       }
     }
     getStudents();
@@ -85,10 +82,9 @@ function AttendenceT() {
   useEffect(() => {
     if (absentees.selectedRows) {
       const sentData = async () => {
-        const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`, {
+        await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`, {
           absentees: absentees
         })
-        console.log(response)
       }
       sentData()
     }

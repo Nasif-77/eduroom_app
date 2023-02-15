@@ -52,13 +52,12 @@ function AssignmentsT() {
       formData.append('date', date)
       formData.append('title', title)
       formData.append('description', description)
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`, formData, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
 
     } catch (error) {
-      console.log(error)
     }
 
   }
@@ -69,7 +68,7 @@ function AssignmentsT() {
   const updateAssignment = async () => {
     try {
 
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, {
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, {
         date: date,
         title: title,
         description: description
@@ -85,7 +84,7 @@ function AssignmentsT() {
       const formData = new FormData();
       formData.append('date', date)
       formData.append('file', file)
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, formData, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
     } catch (error) {
@@ -96,10 +95,9 @@ function AssignmentsT() {
 
   const deleteAssignment = async () => {
     try {
-      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -122,46 +120,46 @@ function AssignmentsT() {
           </nav>
 
           <br /><br /><br />
-         
-            <Table className={classes.Table}>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Uploaded date</TableCell>
-                  <TableCell>title</TableCell>
-                  <TableCell>Delete Assignment</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {data.map((item, index) => {
-                  return (
-                    <TableRow key={index}>
-                      <TableCell>
-                        {item.date}
-                      </TableCell>
-                      <TableCell>
-                        <Button variant='outlined'
-                          onClick={() => {
-                            setTitle(item.title)
-                            setFilePath(item.filePath)
-                            setDescription(item.description)
-                            setId(item._id)
-                            setFlag('details')
-                          }}
-                        >{item.title}<PictureAsPdfIcon /></Button>
-                      </TableCell>
 
-                      <TableCell>
-                        <Button onClick={() => {
-                          setTitle(item.title); setId(item._id); setFlag('delete')
-                        }} variant='contained' color='error'>Delete</Button>
-                      </TableCell>
+          <Table className={classes.Table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Uploaded date</TableCell>
+                <TableCell>title</TableCell>
+                <TableCell>Delete Assignment</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {data.map((item, index) => {
+                return (
+                  <TableRow key={index}>
+                    <TableCell>
+                      {item.date}
+                    </TableCell>
+                    <TableCell>
+                      <Button variant='outlined'
+                        onClick={() => {
+                          setTitle(item.title)
+                          setFilePath(item.filePath)
+                          setDescription(item.description)
+                          setId(item._id)
+                          setFlag('details')
+                        }}
+                      >{item.title}<PictureAsPdfIcon /></Button>
+                    </TableCell>
 
-                    </TableRow>
-                  )
-                })}
-              </TableBody>
-            </Table>
-       
+                    <TableCell>
+                      <Button onClick={() => {
+                        setTitle(item.title); setId(item._id); setFlag('delete')
+                      }} variant='contained' color='error'>Delete</Button>
+                    </TableCell>
+
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+
         </div> : ''}
 
 
@@ -170,8 +168,8 @@ function AssignmentsT() {
           <nav>
             <Button onClick={() => setFlag('home')}>Back</Button>
             <div>
-            <Button variant='contained' color='success' onClick={() => setFlag('edit')}>Edit<EditIcon /></Button>
-            <Button variant='contained' color='success' onClick={() => setFlag('edit file')}>Edit File<EditIcon /></Button>
+              <Button variant='contained' color='success' onClick={() => setFlag('edit')}>Edit<EditIcon /></Button>
+              <Button variant='contained' color='success' onClick={() => setFlag('edit file')}>Edit File<EditIcon /></Button>
             </div>
           </nav>
           <div>
@@ -241,7 +239,7 @@ function AssignmentsT() {
             <form onSubmit={updateFile}>
 
               <Button
-                sx={{ background: '#009688' }}  variant="contained" component="label" >Upload File
+                sx={{ background: '#009688' }} variant="contained" component="label" >Upload File
                 <TextField type="file" hidden onChange={(e) => { setFile(e.target.files[0]) }} />
               </Button>
 

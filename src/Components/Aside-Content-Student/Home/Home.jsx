@@ -1,10 +1,8 @@
-import { Button, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Paper, Divider } from '@mui/material'
+import { Button, List, ListItem, ListItemButton,Divider } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './home.module.css'
-import InboxIcon from '@mui/icons-material/Inbox';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import Grid from '@mui/material/Unstable_Grid2'
 
 function Home() {
@@ -35,7 +33,6 @@ function Home() {
         let data = response.data
         setAnnounce(data)
       } catch (error) {
-        console.log(error)
       }
 
     }
@@ -78,7 +75,7 @@ function Home() {
                     <Divider sx={{ background: 'white' }} />
                     <Box sx={{ width: '100%', height: '100%' }}>
                       <List>
-                        {announce.map((item, index) => {
+                        {announce.forEach((item, index) => {
                           if (item.date === date) {
                             return (
                               <ListItem disablePadding key={index}>
@@ -113,7 +110,7 @@ function Home() {
                   <Divider sx={{ background: 'white' }} />
                   <Box sx={{ width: '100%', height: '100%' }}>
                     <List>
-                      {event.map((item, index) => {
+                      {event.forEach((item, index) => {
                         if (item.date === date) {
                           return (
                             <ListItem disablePadding key={index}>
@@ -150,7 +147,7 @@ function Home() {
         </Button>
         <div>
           <h2>Subject:{eventSubject}</h2>
-          <h4>Announced Date:Today</h4>
+          <h4>Announced Date:{eventDate}</h4>
           <div>
             <p>Description:{description}</p>
           </div>
@@ -173,7 +170,7 @@ function Home() {
           <h2>Event:{eventSubject}</h2>
           <h3>Conducted by:{club}</h3>
           <div>
-            <h4>Event Date:Today</h4>
+            <h4>Event Date:{eventDate}</h4>
             <p>Description:{description}</p>
           </div>
 

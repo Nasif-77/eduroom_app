@@ -50,26 +50,23 @@ function NotesT() {
       formData.append('title', title)
       formData.append('description', description)
       formData.append('file', file)
-      const response = await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, formData, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
 
-      console.log(response)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
 
   const updateNotes = async () => {
     try {
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, {
-        title:title,
-        description:description,
-        date:date
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, {
+        title: title,
+        description: description,
+        date: date
       })
-      console.log(response)
     } catch (error) {
 
     }
@@ -80,7 +77,7 @@ function NotesT() {
       const formData = new FormData();
       formData.append('date', date)
       formData.append('file', file)
-      let response = await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, formData, {
+      await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, formData, {
         headers: { "Content-Type": "multipart/form-data" }
       })
     } catch (error) {
@@ -91,12 +88,9 @@ function NotesT() {
 
   const deleteNotes = async () => {
     try {
-      console.log(id)
-      let response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`)
-      console.log(response)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`)
 
     } catch (error) {
-      console.log(error)
     }
   }
 
@@ -142,6 +136,7 @@ function NotesT() {
                             setDescription(item.description)
                             setId(item._id)
                             setFlag('details')
+                            setFilePath(item.filePath)
                           }}
                         >{item.title}<PictureAsPdfIcon /></Button>
                       </TableCell>
@@ -178,7 +173,7 @@ function NotesT() {
               <a href={`${process.env.REACT_APP_SERVER_URL}/${filePath}`}><h4>Download Note:<PictureAsPdfIcon /></h4></a>
             </div>
             <div>
-              <p>Assignment Details:{description}</p>
+              <p>Note Details:{description}</p>
             </div>
           </div>
 
@@ -241,7 +236,7 @@ function NotesT() {
             <form onSubmit={updateFile}>
 
               <Button
-                sx={{ background: '#009688' }}  variant="contained" component="label" >Upload File
+                sx={{ background: '#009688' }} variant="contained" component="label" >Upload File
                 <TextField type="file" hidden onChange={(e) => { setFile(e.target.files[0]) }} />
               </Button>
 

@@ -14,7 +14,6 @@ function Notes() {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`)
         setData(response.data)
-        console.log(response.data)
       } catch (error) {
 
       }
@@ -47,7 +46,7 @@ function Notes() {
             <TableBody>
               {data.map((item, index) => {
                 return (
-                  <TableRow>
+                  <TableRow key={index}>
                     <TableCell>{item.date}</TableCell>
                     <TableCell><Button
                       onClick={() => {

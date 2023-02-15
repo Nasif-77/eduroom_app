@@ -8,13 +8,20 @@ function LandingPage() {
 
     return (
         <div className={classes.container}>
-            <nav className={classes.landingPageHead}>
-                <p>Which One Are You?</p>
-            </nav>
+
             <div className={classes.mainDiv}>
-            <LandingTutor />
-            <LandingStudent />
+
+                <nav className={classes.landingPageHead}>
+                    <p>Which One Are You?</p>
+                </nav>
+
+                <div className={classes.cardDiv}>
+                    <LandingTutor />
+                    <LandingStudent />
+                </div>
+ 
             </div>
+
         </div>
     )
 }

@@ -4,7 +4,11 @@ import { Link, useNavigate } from 'react-router-dom';
 import classes from './login.module.css'
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Button ,IconButton,Input,InputAdornment,InputLabel,TextField } from '@mui/material';
+import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, Typography } from '@mui/material';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import LoginIcon from '@mui/icons-material/Login';
+import { Box } from '@mui/system';
+
 
 function LoginTutor() {
   const navigate = useNavigate()
@@ -21,23 +25,23 @@ function LoginTutor() {
   })
 
 
-  
-//Show/Hide password
+
+  //Show/Hide password
 
 
   const [values, setValues] = useState({
     password: "",
     showPassword: false,
   });
-  
+
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword });
   };
-  
+
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
+
   const handlePasswordChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -58,7 +62,7 @@ function LoginTutor() {
 
       let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/tutor/login`, {
         method: "POST",
-        body: JSON.stringify({ password:values.password, email: fieldEmail }),
+        body: JSON.stringify({ password: values.password, email: fieldEmail }),
         headers: { "Content-Type": "application/json" }
       })
       result = await result.json()
@@ -67,8 +71,8 @@ function LoginTutor() {
         Setlogin('Email or password does not match')
       } else {
         const token = await jwtDecode(result.token)
-        let { name, email, contact, position,aud } = token
-        let user = { name, email, contact, position,aud }
+        let { name, email, contact, position, aud } = token
+        let user = { name, email, contact, position, aud }
         if (user) {
           if (user.position === 'tutor') {
             localStorage.setItem('user', JSON.stringify(user))
@@ -83,38 +87,55 @@ function LoginTutor() {
 
   return (
     <div className={classes.login}>
-      <Link className={classes.backBtn} to={'/'}><Button variant='contained' color='inherit' >Back</Button></Link>
-      <form action="" className={classes.form} >
-        <h1 className={classes.head1}><strong><i>LOGIN TUTOR</i></strong></h1>
+      <Link className={classes.backBtn} to={'/'}><IconButton color='success' ><ArrowBackIcon fontSize='large' /></IconButton></Link>
 
-        <InputLabel htmlFor="standard-adornment-password">
-        Enter your Email
-      </InputLabel>
-        
-        <Input label="Enter Your email" type="text" onChange={(e) => { setEmail(e.target.value) }} className={classes.input} required={true} />
-        <br />
+      <form action=""  >
 
-       <InputLabel htmlFor="standard-adornment-password">
-        Enter your Password
-      </InputLabel>
-        
-       <Input
-        type={values.showPassword ? "text" : "password"}
-        onChange={handlePasswordChange("password")}
-        value={values.password}
-        endAdornment={
-          <InputAdornment position="end">
-            <IconButton
-              onClick={handleClickShowPassword}
-              onMouseDown={handleMouseDownPassword}
-            >
-              {values.showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
-          </InputAdornment>
-        }
-      />
-        <br />
-        <Button variant='contained' type='button' className={classes.button} onClick={sentValue}>login</Button>
+        <Box
+          className={classes.form}
+          display={'flex'}
+          flexDirection={'column'}
+          maxWidth={300}
+          margin={'auto'}
+          padding={10}
+        >
+
+          <Typography variant={'h4'} fontWeight={'bold'} >
+            LOGIN
+          </Typography>
+
+
+
+          <TextField label={'E-mail'} type={'email'} sx={{ m: 1, width: '30ch' }}
+            onChange={(e) => { setEmail(e.target.value) }} variant='standard'
+          />
+
+          <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
+            <InputLabel htmlFor="standard-adornment-password">
+              Enter your Password
+            </InputLabel>
+
+            <Input
+              type={values.showPassword ? "text" : "password"}
+              onChange={handlePasswordChange("password")}
+              value={values.password}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={handleClickShowPassword}
+                    onMouseDown={handleMouseDownPassword}
+                  >
+                    {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+          </FormControl>
+          <br />
+          <Button sx={{ marginTop: '2ch' }} variant='contained' color='success' type='button' endIcon={<LoginIcon />}
+            onClick={sentValue}>login</Button>
+          <p style={{ color: 'red', textAlign: 'center' }}>{login}</p>
+        </Box>
       </form>
     </div>
   )

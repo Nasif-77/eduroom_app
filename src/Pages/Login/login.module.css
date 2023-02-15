@@ -1,14 +1,17 @@
 .login {
-    height: 100vh;
-    background-color: lemonchiffon;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
 .backBtn {
-    align-self: flex-start;
+    align-self: center;
+    margin-right: 20em;
+    margin-bottom: 1em;
     text-decoration: none;
+    margin-top: 30px;
+    font-size: x-large;
 }
 
 
@@ -21,54 +24,39 @@
 
 
 .form {
-    background: linear-gradient(to top right, transparent, coral);
-    display: grid;
-    box-shadow: 3px 5px rgb(90, 90, 90);
-    border: 2px solid black;
-    padding: 100px;
-    height: 50vh;
-    width: 20vw;
-    color: darkmagenta;
-    justify-content: center;
-    align-items: center;
-    font-size: large;
+    background-color: rgb(191, 220, 191);
+    border-radius: 1em;
+    color: black;
+    
 }
 
-.h1 {
-    color: indigo;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-    text-align: start;
-}
 
 .head1 {
     color: indigo;
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
     text-align: start;
     letter-spacing: 9px;
 
 }
 
-.input {
-    width: 100%;
-    height: 100%;
-}
 
-.button {
-    font-size: large;
-    height: 100%;
-    cursor: pointer;
+.p {
+    text-align: center;
 }
 
 .p a {
-    text-align: center;
-    text-decoration: none;
-    display: block;
     color: darkgreen;
     font-weight: 700;
 }
 
-@media(max-width:600px) {
+@media(max-width:700px) {
+    .form{
+        padding: 0px;
+    }
+    .form input{
+      
+    }
+    .backBtn{
+    margin-right: 10em;
 
+    }
 }
