@@ -41,3 +41,28 @@
     width: 100%;
     height: auto;
 }
+
+
+@media (max-width:700px){
+    .subject{
+        width: 50ch;
+    }
+}
+
+@media (max-width:500px){
+    .subject{
+        width: 35ch;
+    }
+}
+
+@media (max-width:400px){
+    .subject{
+        width: 25ch;
+    }
+}
+
+@media (max-width:300px){
+    .subject{
+        width: 20ch;
+    }
+}

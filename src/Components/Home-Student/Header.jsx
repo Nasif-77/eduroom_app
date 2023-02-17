@@ -1,15 +1,26 @@
-import { Button } from '@mui/joy'
 import React, { useState } from 'react'
-import {  Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import classes from './header.module.css'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import Sidebar from './Sidebar';
-import { Drawer } from '@mui/material';
+import { Dialog, DialogActions, DialogTitle, Drawer, IconButton ,Button} from '@mui/material';
 import Box from '@mui/material/Box';
+import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 
 
 
 function Header() {
+
+
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
 
   const [drawer, setDrawer] = useState(false)
@@ -32,14 +43,36 @@ function Header() {
 
       <div className={classes.div1}>
         <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
-        
+
         <h1 style={{ color: "white" }}>Hi <span style={{ color: 'blanchedalmond', fontFamily: 'serif', fontSize: 30 }}>{fullname}</span></h1>
       </div>
-      
+
       <div className={classes.div2}>
-        <Link to='/student/login'>
-          <Button onClick={logout}>Log Out</Button>
-        </Link>
+        <div>
+          <IconButton size='medium' onClick={handleClickOpen}><PowerSettingsNewIcon titleAccess='Logout' fontSize='medium' /></IconButton>
+        </div>
+
+      </div>
+
+      <div>
+        <Dialog
+          open={open}
+          onClose={handleClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {"Are you sure to log out?"}
+          </DialogTitle>
+          <DialogActions>
+            <Button onClick={handleClose}>Cancel</Button>
+            <Button onClick={logout} autoFocus>
+              <Link to='/student/login' style={{color:'inherit',textDecoration:'none'}}>
+              Logout
+              </Link>
+            </Button>
+          </DialogActions>
+        </Dialog>
       </div>
 
       <Drawer

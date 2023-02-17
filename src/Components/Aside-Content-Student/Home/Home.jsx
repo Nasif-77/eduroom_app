@@ -1,4 +1,4 @@
-import { Button, List, ListItem, ListItemButton,Divider } from '@mui/material'
+import { Button, List, ListItem, ListItemButton, Divider } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -44,7 +44,8 @@ function Home() {
   let month = date.split(' ')[1]
   let year = date.split(' ')[3]
   let day = date.split(' ')[2]
-  date = [month, day, year].join(' ')
+  date = ['',month, day, year].join(' ')
+  let Announcementdate = [month, day, year].join(' ')
 
 
   //________________________________________________
@@ -70,30 +71,31 @@ function Home() {
             <Grid xs={12} md={6}>
               <Box className={classes.announcement}>
                 <nav>
-                      <h2>Announcements Today</h2>
-                    </nav>
-                    <Divider sx={{ background: 'white' }} />
-                    <Box sx={{ width: '100%', height: '100%' }}>
-                      <List>
-                        {announce.forEach((item, index) => {
-                          if (item.date === date) {
-                            return (
-                              <ListItem disablePadding key={index}>
-                                <ListItemButton onClick={() => {
-                                  setFlag('announcement')
-                                  setEventDate(item.date)
-                                  setDescription(item.description)
-                                  setEventSubject(item.subject)
-                                  setImageUrl(item.imageUrl)
-                                }}>
-                                  <h3 >{item.subject}</h3>
-                                </ListItemButton>
-                              </ListItem>
-                            )
-                          }
-                        })}
-                      </List>
-                    </Box>
+                  <h2>Announcements Today</h2>
+                </nav>
+                <Divider sx={{ background: 'white' }} />
+                <Box sx={{ width: '100%', height: '100%' }}>
+                  <List>
+                    {announce.map((item, index) => {
+                      if (item.date === Announcementdate) {
+                        return (
+                          <ListItem disablePadding key={index}>
+                            <ListItemButton onClick={() => {
+                              setFlag('announcement')
+                              setEventDate(item.date)
+                              setDescription(item.description)
+                              setEventSubject(item.subject)
+                              setImageUrl(item.imageUrl)
+                            }}>
+                              <h3 >{item.subject}</h3>
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      }
+                      return ('')
+                    })}
+                  </List>
+                </Box>
 
               </Box>
             </Grid>
@@ -105,30 +107,32 @@ function Home() {
 
               <Box className={classes.event}>
                 <nav>
-                    <h2>Events Today</h2>
-                  </nav>
-                  <Divider sx={{ background: 'white' }} />
-                  <Box sx={{ width: '100%', height: '100%' }}>
-                    <List>
-                      {event.forEach((item, index) => {
-                        if (item.date === date) {
-                          return (
-                            <ListItem disablePadding key={index}>
-                              <ListItemButton onClick={() => {
-                                setFlag('event')
-                                setEventDate(item.date)
-                                setDescription(item.description)
-                                setEventSubject(item.event)
-                                setClub(item.club)
-                              }}>
-                                <h3>{item.event}</h3>
-                              </ListItemButton>
-                            </ListItem>
-                          )
-                        }
-                      })}
-                    </List>
-                  </Box>
+                  <h2>Events Today</h2>
+                </nav>
+                <Divider sx={{ background: 'white' }} />
+                <Box sx={{ width: '100%', height: '100%' }}>
+                  <List>
+                    {event.map((item, index) => {
+                      if (item.date === date) {
+                        return (
+                          <ListItem disablePadding key={index}>
+                            <ListItemButton onClick={() => {
+                              setFlag('event')
+                              setEventDate(item.date)
+                              setDescription(item.description)
+                              setEventSubject(item.event)
+                              setClub(item.club)
+                            }}>
+                              <h3>{item.event}</h3>
+                            </ListItemButton>
+                          </ListItem>
+                        )
+                      }
+                      return ('')
+
+                    })}
+                  </List>
+                </Box>
 
               </Box>
 
@@ -153,7 +157,7 @@ function Home() {
           </div>
 
           <div>
-            <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}`} alt="" width={600} />
+            <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}`} alt=""  />
           </div>
 
         </div>

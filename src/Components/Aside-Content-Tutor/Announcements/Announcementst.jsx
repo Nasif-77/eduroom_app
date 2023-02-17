@@ -88,7 +88,7 @@ function AnnouncementsT() {
 
 
             <h3>Description</h3>
-            <Textarea sx={{ width: '74ch' }} required={true} onChange={(e) => { setDescription(e.target.value) }} ></Textarea>
+            <Textarea sx={{ maxWidth: '74ch' }} required={true} onChange={(e) => { setDescription(e.target.value) }}  ></Textarea>
             <h4>Attatchments</h4>
             <Button
               sx={{ background: '#009688' }} variant="contained" component="label" >Upload File
@@ -143,18 +143,23 @@ function AnnouncementsT() {
 
         {flag === 'details' ? <div className={classes.detailsDiv}>
           <Button onClick={() => setFlag('all')}>Back</Button>
-          <h2>{details.subject}</h2>
-          <h5>{details.date}</h5>
-          <p>{details.description}</p>
+          <h2>Title:{details.subject}</h2>
+          <h5>Date:{details.date}</h5>
+          <p>More Information:
+            <br /><br />
+            {details.description}</p>
           <img src={`${process.env.REACT_APP_SERVER_URL}/${details.imageUrl}`} alt="" width={700} />
         </div> : ''}
 
 
         {flag === 'edit' ? <div>
           <Button onClick={() => setFlag('all')}>Back</Button>
+          <br /><br />
           <form onSubmit={updateAnnouncement}>
-            <TextField label={'Change subject'} required={true} type="text" onChange={(e) => setSubject(e.target.value)} defaultValue={subject} />
-            <Textarea label={'Change Description'} required={true} type="text" onChange={(e) => setDescription(e.target.value)}
+            <TextField className={classes.subject} label={'Change subject'} required={true} type="text" onChange={(e) => setSubject(e.target.value)} defaultValue={subject} />
+            <br /><br />
+            <br /><br />
+            <Textarea sx={{ maxWidth: '76ch' }} label={'Change Description'} required={true} type="text" onChange={(e) => setDescription(e.target.value)}
               defaultValue={description} />
             <br /><br />
             <Button variant='contained' type='submit'>Change</Button>
