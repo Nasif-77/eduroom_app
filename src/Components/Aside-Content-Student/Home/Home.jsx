@@ -1,4 +1,4 @@
-import { Button, List, ListItem, ListItemButton, Divider } from '@mui/material'
+import { Button, List, ListItem, ListItemButton, Divider, Typography } from '@mui/material'
 import { Box } from '@mui/system'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
@@ -44,7 +44,7 @@ function Home() {
   let month = date.split(' ')[1]
   let year = date.split(' ')[3]
   let day = date.split(' ')[2]
-  date = ['',month, day, year].join(' ')
+  date = ['', month, day, year].join(' ')
   let Announcementdate = [month, day, year].join(' ')
 
 
@@ -54,9 +54,9 @@ function Home() {
   return (
 
     <div className={classes.container}>
+
       <nav>
-        <h3>Date :{date}</h3>
-        <h3>Attendence:Present</h3>
+        <Typography variant='h5' textAlign={'center'} padding={2}>Date :{date}</Typography>
       </nav>
 
 
@@ -71,7 +71,7 @@ function Home() {
             <Grid xs={12} md={6}>
               <Box className={classes.announcement}>
                 <nav>
-                  <h2>Announcements Today</h2>
+                  <Typography padding={2} variant='h5'>Announcements Today</Typography>
                 </nav>
                 <Divider sx={{ background: 'white' }} />
                 <Box sx={{ width: '100%', height: '100%' }}>
@@ -96,18 +96,14 @@ function Home() {
                     })}
                   </List>
                 </Box>
-
               </Box>
             </Grid>
-
-
-
 
             <Grid xs={12} md={6}>
 
               <Box className={classes.event}>
                 <nav>
-                  <h2>Events Today</h2>
+                  <Typography variant='h5' padding={2}>Events Today</Typography>
                 </nav>
                 <Divider sx={{ background: 'white' }} />
                 <Box sx={{ width: '100%', height: '100%' }}>
@@ -157,7 +153,7 @@ function Home() {
           </div>
 
           <div>
-            <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}`} alt=""  />
+            <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}`} alt="" />
           </div>
 
         </div>

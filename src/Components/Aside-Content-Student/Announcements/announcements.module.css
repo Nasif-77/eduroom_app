@@ -1,7 +1,7 @@
 .container {
     display: grid;
     padding: 20px;
-    grid-template: .2fr 1fr 1fr/1fr;
+    grid-template: 15vh 5fr/1fr;
 
 }
 

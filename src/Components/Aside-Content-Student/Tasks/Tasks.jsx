@@ -1,6 +1,5 @@
-import { Button, Divider, ListItemButton, List, ListItem, Paper } from '@mui/material';
+import { Button, ListItemButton, List, ListItem, Paper, Typography } from '@mui/material';
 import Grid from '@mui/material/Unstable_Grid2'
-import { Box } from '@mui/system'
 import axios from 'axios';
 import React from 'react'
 import { useState } from 'react';
@@ -56,7 +55,7 @@ function Tasks() {
         <Grid xs={12}>
 
           <nav>
-            <h2>Todays task</h2>
+            <Typography variant='h4' padding={2} fontWeight={600} textAlign={'center'}>Todays Task</Typography>
           </nav>
 
         </Grid>
@@ -64,14 +63,14 @@ function Tasks() {
 
         <Grid md={6} xs={12}>
           <div>
-            <h3>Todays:Assignment</h3>
+            <Typography variant='h6' padding={2} fontWeight={600}>Todays:Assignment</Typography>
             <Paper sx={{ backgroundColor: 'rgba(43, 43, 128, 0.177)' }} elevation={5}>
               <List>
                 {assignment.map((item, index) => {
                   if (item.date === date) {
                     return (
                       <ListItem disablePadding key={index}>
-                        <ListItemButton  onClick={() => {
+                        <ListItemButton onClick={() => {
                           setFlag('assignment')
                           setTitle(item.title)
                           setDescription(item.description)
@@ -85,7 +84,7 @@ function Tasks() {
                   }
                   else {
                     return (
-                      <h2 key={index}>No Assignments Uploaded today</h2>
+                      <Typography variant='h6' textAlign={'center'} key={index}>No Assignments Uploaded today</Typography>
                     )
                   }
                 })}
@@ -104,7 +103,8 @@ function Tasks() {
 
         <Grid md={6} xs={12}>
           <div>
-            <h3>Todays:Notes</h3>
+            <Typography variant='h6' padding={2} fontWeight={600}>Todays:Notes</Typography>
+
 
             <Paper sx={{ backgroundColor: 'rgba(43, 43, 128, 0.177)' }} elevation={5}>
 
@@ -127,7 +127,7 @@ function Tasks() {
                   }
                   else {
                     return (
-                      <h2 key={index}>No Notes Uploaded Today</h2>
+                      <Typography variant='h6' textAlign={'center'} key={index}>No Notes Uploaded Today</Typography>
                     )
                   }
                 })}
