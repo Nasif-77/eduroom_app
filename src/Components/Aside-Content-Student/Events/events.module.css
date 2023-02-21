@@ -27,3 +27,18 @@ th {
     border: 1px solid black;
 
 }
+
+.table th{
+    background-color: rgb(1, 65, 65);
+    color: lightblue;
+    text-align: center;
+}
+
+.table button{
+    background-color:darkcyan;
+}
+
+.table td{
+    background-color: lightblue;
+    color: rgb(1, 51, 51);
+}

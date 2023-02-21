@@ -23,8 +23,13 @@
 
 .table td {
     text-align: center;
+    border: 2px solid rgb(0, 86, 86);
+    background-color: rgb(216, 255, 255);
 }
 
 .table th {
     text-align: center;
+    background-color: rgb(97, 128, 128);
+    color: rgb(203, 255, 255);
+    border: 3px solid rgb(0, 86, 86);
 }

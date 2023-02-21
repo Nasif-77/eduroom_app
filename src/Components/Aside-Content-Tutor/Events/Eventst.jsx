@@ -27,8 +27,9 @@ function EventsT() {
 
   useEffect(() => {
     const getValue = async () => {
-      setDate(date.$d.toString().slice(4, 15))
+      
       try {
+        setDate(date.$d.toDateString().slice(4, 15))
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`)
         setData(response.data)
       } catch (error) {
@@ -134,11 +135,11 @@ function EventsT() {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Date</TableCell>
-                <TableCell>Club</TableCell>
-                <TableCell>Event</TableCell>
-                <TableCell>Edit</TableCell>
-                <TableCell>Delete</TableCell>
+                <TableCell variant='head'>Date</TableCell>
+                <TableCell variant='head'>Club</TableCell>
+                <TableCell variant='head'>Event</TableCell>
+                <TableCell variant='head'>Edit</TableCell>
+                <TableCell variant='head'>Delete</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -151,13 +152,13 @@ function EventsT() {
                   <TableRow key={index}>
                     <TableCell>{date}</TableCell>
                     <TableCell>{club}</TableCell>
-                    <TableCell><Button onClick={() => {
+                    <TableCell><Button variant='contained' sx={{width:'10em'}} onClick={() => {
                       setDetails(element); setFlag('details')
                     }}>{event}</Button></TableCell>
-                    <TableCell><Button onClick={() => {
+                    <TableCell><Button variant='contained' onClick={() => {
                       setDate(date); setEvent(event); setClub(club); setDescription(description); setFlag('edit'); setId(element._id)
                     }} color='success'>Edit</Button></TableCell>
-                    <TableCell><Button onClick={() => {
+                    <TableCell><Button variant='contained' onClick={() => {
                       setDetails(element);
 
                       setFlag('delete'); setId(element._id)

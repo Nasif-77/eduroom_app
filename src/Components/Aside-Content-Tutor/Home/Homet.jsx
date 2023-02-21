@@ -66,7 +66,7 @@ function HomeT() {
     if (m < 10) {
       m = '0' + m
     }
-    if (h > 12) {
+    if (h >= 12) {
       AmPm = 'PM'
       h = h - 12
       if (h < 10) {

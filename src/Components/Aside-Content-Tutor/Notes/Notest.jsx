@@ -112,12 +112,12 @@ function NotesT() {
             <AddIcon fontSize='large' color='info' className={classes.addIcon} onClick={() => setFlag('upload')} />
           </nav>
           <div>
-            <Table >
+            <Table className={classes.table}>
               <TableHead>
                 <TableRow>
-                  <TableCell>Uploaded Date  </TableCell>
-                  <TableCell>title</TableCell>
-                  <TableCell>Delete Notes</TableCell>
+                  <TableCell variant='head'>Uploaded Date  </TableCell>
+                  <TableCell variant='head'>Title</TableCell>
+                  <TableCell variant='head' >Delete Notes</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -125,11 +125,11 @@ function NotesT() {
                   return (
                     <TableRow key={index}>
 
-                      <TableCell>
+                      <TableCell variant='body'>
                         {item.date}
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell variant='body'>
                         <Button variant='outlined'
                           onClick={() => {
                             setTitle(item.title)
@@ -141,7 +141,7 @@ function NotesT() {
                         >{item.title}<PictureAsPdfIcon /></Button>
                       </TableCell>
 
-                      <TableCell>
+                      <TableCell variant='body'>
                         <Button onClick={() => {
                           setTitle(item.title); setId(item._id); setFlag('delete')
                         }} variant='contained' color='error'>Delete</Button>

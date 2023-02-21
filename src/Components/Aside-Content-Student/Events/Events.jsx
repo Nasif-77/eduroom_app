@@ -1,9 +1,8 @@
 import axios from 'axios'
 import classes from './events.module.css'
 import React, { useEffect, useState } from 'react'
-import { Button, Table, TableBody, TableCell, TableHead, TableContainer, TableRow, Paper } from '@mui/material'
-import { DataGrid } from '@mui/x-data-grid';
-import { Box } from '@mui/system';
+import { Button, Table, TableBody, TableCell, TableHead, TableContainer, TableRow } from '@mui/material'
+
 
 
 function Events() {
@@ -58,7 +57,7 @@ function Events() {
                                         <TableRow key={index}>
                                             <TableCell>{date}</TableCell>
                                             <TableCell>{club}</TableCell>
-                                            <TableCell><Button onClick={() => {
+                                            <TableCell><Button variant='contained' onClick={() => {
                                                 setDetails(element); setFlag('details')
                                             }}>{event}</Button></TableCell>
                                         </TableRow>)
@@ -68,7 +67,7 @@ function Events() {
                     </TableContainer>
                 </div> : ''}
                 
-                {flag == 'details' ? <div>
+                {flag === 'details' ? <div>
                     <Button onClick={() => setFlag('home')}>Back</Button>
                     <h2>Event:{details.event}</h2>
                     <h2>Club:{details.club}</h2>

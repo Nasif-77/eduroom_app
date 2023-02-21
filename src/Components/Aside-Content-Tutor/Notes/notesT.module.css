@@ -80,10 +80,23 @@
 
 
 .deleteDiv div {
-    background-color: rgb(126, 244, 0);
+    background-color: rgb(47, 90, 0);
     padding: 10px;
+    color: white;
 }
 
+.table th{
+    text-align: center;
+    border: 3px solid lightgreen;
+    background-color: darkgreen;
+    color: white;
+    border-radius: 5px;
+}
+
+.table td{
+    border: 2px solid green;
+    text-align: center;
+}
 
 @media (max-width:1500px) {
 
