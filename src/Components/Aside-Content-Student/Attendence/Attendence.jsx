@@ -1,5 +1,5 @@
 import axios from 'axios'
-import React from 'react'
+import React, { useRef } from 'react'
 import { useState } from 'react'
 import { useEffect } from 'react'
 import classes from './attendence.module.css'
@@ -13,10 +13,10 @@ function Attendence() {
 
   const [user, setUser] = useState({})
   const [absentees, setAbsentees] = useState([]);
-  let [totalAbsent, setTotalAbsent] = useState(0)
   let [absentDays, setAbsentDays] = useState('Present');
   const [flag, setFlag] = useState('home');
   const [datee, setDate] = useState(new Date());
+  let totalAbsent= useRef(0)
 
 
   let storage = JSON.parse(localStorage.getItem('user'))
@@ -51,25 +51,27 @@ function Attendence() {
     getProfile()
     getAbsentees();
 
-  },[storage.aud])  
+  }, [storage.aud])
 
 
 
 
-  useEffect(() => {  
-    if (absentees.length !== 0) {
-      absentees.forEach((absentee, item) => {
-        absentee.absentees.selectedRows.forEach((student, index) => {
-          if (student === name) {
-            setTotalAbsent(totalAbsent++)
-          }
+  useEffect(() => {
+
+    const getAttendence = () => {
+      if (absentees.length !== 0) {
+        absentees.forEach((absentee) => {
+          absentee.absentees.selectedRows.forEach((student) => {
+            if (student === name) {
+              totalAbsent.current +=1;
+            }
+          })
         })
-      })
+      }
     }
-    if (totalAbsent > 0) {
-      setTotalAbsent(totalAbsent++)
-    }
-  }, [absentees])
+    getAttendence()
+  },[absentees,name]
+  )
 
 
 
@@ -167,8 +169,8 @@ function Attendence() {
         <Button
           onClick={() => setFlag('home')}>Back</Button>
 
-        <h3>Total number of absent days:{totalAbsent}</h3>
-        <h3>Maximum number of present days this month:{DMonth - totalAbsent}</h3>
+        <h3>Total number of absent days:{totalAbsent.current/2}</h3>
+        <h3>Maximum number of present days this month:{DMonth - totalAbsent.current/2}</h3>
 
       </div> : ''}
 

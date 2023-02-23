@@ -26,7 +26,7 @@ function ProfileT() {
 
   if (name !== undefined) {
     name = name.charAt(0).toUpperCase()
-    name = name +user.fname.slice(1)
+    name = name + user.fname.slice(1)
   }
 
 
@@ -42,14 +42,14 @@ function ProfileT() {
       setId(response.data._id)
     }
     getProfile()
-  }, [])
+  })
 
 
 
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile/${id}`, {
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile/${id}`, {
         name: fname,
         contact: contact,
         email: fieldEmail

@@ -15,9 +15,9 @@ export const validationSchema = Yup.object({
         .min(8, 'Password should be of minimum 8 characters length')
         .matches(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/, { message: "Please create a stronger password(special characters,numbers..)" })
         .required('Password is required'),
-    confirmPassword: Yup.
-        string().
-        oneOf([Yup.ref('password'), null], ('Passwords must match '))
+    confirmPassword: Yup
+        .string()
+        .oneOf([Yup.ref('password'), null], ('Passwords must match '))
         .required('Password confirmation is required'),
     contact: Yup
         .string('Contact cannot be alphabets')

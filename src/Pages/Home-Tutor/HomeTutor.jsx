@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
 import Header from '../../Components/Home-Tutor/Header'
-import Sidebar from '../../Components/Home-Tutor/Sidebar'
 import classes from './styles.module.css'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 

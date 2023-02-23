@@ -1,4 +1,4 @@
-import { Button, TextField, FormHelperText } from '@mui/material'
+import { Button, TextField } from '@mui/material'
 import axios from 'axios'
 import React from 'react'
 import { useState } from 'react'
@@ -7,8 +7,6 @@ import classes from './profile.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
-import { CleaningServices } from '@mui/icons-material'
-import Grid from '@mui/material/Unstable_Grid2/Grid2'
 
 
 
@@ -17,9 +15,6 @@ function Profile() {
 
   const [flag, setFlag] = useState('home')
   const [user, setUser] = useState({})
-  const [fname, setName] = useState('')
-  const [contact, setContact] = useState('')
-  const [fieldEmail, setEmail] = useState('');
   const [id, setId] = useState('');
 
 
@@ -45,7 +40,7 @@ function Profile() {
       setId(response.data._id)
     }
     getProfile()
-  }, [])
+  })
 
   const validationSchema = Yup.object({
     fname: Yup
@@ -79,7 +74,7 @@ function Profile() {
 
   const updateProfile = async () => {
     try {
-      let response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/student/home/profile/${id}`, {
+      await axios.put(`${process.env.REACT_APP_SERVER_URL}/student/home/profile/${id}`, {
         name: formik.values.fname,
         contact: formik.values.contact,
         email: formik.values.email
@@ -115,15 +110,15 @@ function Profile() {
           </div>
 
           <Button variant='contained' onClick={() => {
-            formik.initialValues.fname =name
-            formik.initialValues.email =user.email
-            formik.initialValues.contact =user.contact
+            formik.initialValues.fname = name
+            formik.initialValues.email = user.email
+            formik.initialValues.contact = user.contact
             setFlag('edit');
           }} endIcon={<EditIcon />}>Edit</Button>
 
         </div> : ''}
 
-    
+
 
 
         {flag === 'edit' ? <div className={classes.editDiv}>
