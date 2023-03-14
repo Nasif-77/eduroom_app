@@ -95,7 +95,7 @@ function LoginTutor() {
           className={classes.form}
           display={'flex'}
           flexDirection={'column'}
-          maxWidth={300}
+          maxWidth={3000}
           margin={'auto'}
           padding={10}
         >
