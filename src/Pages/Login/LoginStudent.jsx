@@ -10,6 +10,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import axios from 'axios';
 
 function LoginStudent() {
   const navigate = useNavigate()
@@ -19,14 +20,11 @@ function LoginStudent() {
   const [showPassword, setShowPassword] = React.useState(false);
 
 
-
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-
-
 
   useEffect(() => {
     let auth = JSON.parse(localStorage.getItem('user'))
@@ -38,45 +36,37 @@ function LoginStudent() {
 
 
   const sentValue = async (e) => {
-    if (fieldEmail === '' && password === '') {
-      e.preventDefault()
-      Setlogin('Please enter both the fields')
-    }
-    else if (fieldEmail === '' || password === '') {
-      e.preventDefault()
-      Setlogin('Email or password missing')
+    try {
+      if (fieldEmail === '' && password === '') {
+        e.preventDefault()
+        Setlogin('Please enter both the fields')
+      }
+      else if (fieldEmail === '' || password === '') {
+        e.preventDefault()
+        Setlogin('Email or password missing')
+      }
+
+      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/login`, { email: fieldEmail, password }
+      )
+
+      console.log(result)
+
+      if (result.message === false || result.message === 'password') {
+        e.preventDefault()
+        Setlogin('Please enter correct details')
+      }
+      else if (result.message === 'tutor') {
+        e.preventDefault()
+        Setlogin('You are not a student')
+      }
+      else if (result.message === 'blocked') {
+        e.preventDefault()
+        toast.error("Your account is blocked!");
+      }
+    } catch (error) {
+      // console.log(error)
     }
 
-    let result = await fetch(`${process.env.REACT_APP_SERVER_URL}/student/login`, {
-      method: "POST",
-      body: JSON.stringify({ email: fieldEmail, password }),
-      headers: { "Content-Type": "application/json" }
-    })
-    result = await result.json()
-
-    if (result.message === false || result.message === 'password') {
-      e.preventDefault()
-      Setlogin('Please enter correct details')
-    }
-    else if (result.message === 'tutor') {
-      e.preventDefault()
-      Setlogin('You are not a student')
-    }
-    else if (result.message === 'blocked') {
-      e.preventDefault()
-      toast.error("Your account is blocked!");
-    }
-    const token = await jwtDecode(result.token)
-    let { name, position, aud } = token
-    let user = { name, position, aud }
-
-    if (user.position === 'student') {
-
-      localStorage.setItem('user', JSON.stringify(user))
-      navigate('/student/home')
-    } else {
-      Setlogin('You are not a Student')
-    }
 
   }
 
@@ -102,7 +92,7 @@ function LoginStudent() {
           </Typography>
 
           <TextField label={'E-mail'} type={'email'} sx={{ m: 1, width: '30ch' }}
-              onChange={(e) => setEmail(e.target.value)} variant='standard' />
+            onChange={(e) => setEmail(e.target.value)} variant='standard' />
 
           <FormControl sx={{ m: 1, width: '30ch' }} variant="standard">
             <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import classes from './signup.module.css'
 import { Link, useNavigate } from 'react-router-dom';
-import jwtDecode from 'jwt-decode';
 import axios from 'axios';
 import { Button, FormControl, IconButton, Input, InputAdornment, InputLabel, TextField, FormHelperText, Box, Typography } from '@mui/material';
 import { ToastContainer, toast } from 'react-toastify';
@@ -71,7 +70,7 @@ function SignupStudent() {
   const sentOtp = async () => {
     try {
       setFlag('loading')
-      let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/otp`, {
+      await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/otp`, {
         otp: otp,
         fname: formik.values.fname,
         email: formik.values.email,
@@ -80,12 +79,7 @@ function SignupStudent() {
         position: fieldPosition,
         blocked: blocked
       })
-      result = result.data
-      const token = await jwtDecode(result.token)
-      let { name, email, contact, position, aud } = token
-      let user = { name, email, contact, position, aud }
-      localStorage.setItem('user', JSON.stringify(user))
-      navigate('/student/home')
+      navigate('/student/login')
     } catch (error) {
       setFlag('home')
       toast('Your Otp is Wrong')
