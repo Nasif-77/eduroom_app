@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import { Button, Drawer, Dialog, DialogActions, DialogTitle, IconButton } from '@mui/material';
 import Box from '@mui/material/Box';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import jwtDecode from 'jwt-decode';
 
 
 
@@ -47,13 +48,13 @@ useEffect(()=>{
   
 
 
-  let user = localStorage.getItem('user')
-  user = JSON.parse(user)
+  const token = localStorage.getItem('token')
+  const user = jwtDecode(token)
   let fullname = user.name
   fullname = fullname.toUpperCase()
 
   const logout = () => {
-    localStorage.removeItem('user')
+    localStorage.removeItem('token')
   }
 
   return (

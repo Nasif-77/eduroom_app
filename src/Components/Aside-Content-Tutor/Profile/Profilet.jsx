@@ -6,6 +6,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
+import { IsAuth } from '../../../Helpers/hooks/isAuth';
+import jwtDecode from 'jwt-decode';
 
 function ProfileT() {
 
@@ -21,7 +23,6 @@ function ProfileT() {
 
 
 
-  let profile = JSON.parse(localStorage.getItem('user'))
   let name = user.fname
 
   if (name !== undefined) {
@@ -31,16 +32,19 @@ function ProfileT() {
 
 
   useEffect(() => {
-
+    let token = IsAuth()
+    const profile = jwtDecode(token)
     const getProfile = async () => {
       let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile`, {
         params: {
           id: profile.aud
+        }, headers: {
+          Authorization: `Bearer ${token}`
         }
       })
-      setUser(response.data)
-      setId(response.data._id)
-    }
+      setUser(response.data.user)
+      setId(response.data.user._id)
+    };
     getProfile()
   })
 
@@ -53,6 +57,10 @@ function ProfileT() {
         name: fname,
         contact: contact,
         email: fieldEmail
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
     } catch (error) {

@@ -7,6 +7,7 @@ import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useEffect } from 'react'
 import { Textarea } from '@mui/joy'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 function EventsT() {
@@ -27,11 +28,16 @@ function EventsT() {
 
   useEffect(() => {
     const getValue = async () => {
-      
+      const token = IsAuth()
+
       try {
         setDate(date.$d.toDateString().slice(4, 15))
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`)
-        setData(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setData(response.data.events)
       } catch (error) {
 
       }
@@ -47,13 +53,17 @@ function EventsT() {
   };
 
 
-  const fetchValue = async () => {
+  const sentValue = async () => {
     try {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
         event: event,
         club: club,
         description: description,
         date: date
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
     }
@@ -70,6 +80,10 @@ function EventsT() {
         date: date,
         description: description,
         id: id
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 
@@ -80,7 +94,11 @@ function EventsT() {
 
   const deleteEvent = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
+      })
 
     } catch (error) {
     }
@@ -96,7 +114,7 @@ function EventsT() {
       <div className={classes.mainDiv}>
 
         {flag === 'home' ? <div>
-          <form action="" onSubmit={fetchValue}>
+          <form action="" onSubmit={sentValue}>
             <br />
             <TextField label={'Event'} type="text" placeholder={""} required={true} onChange={(e) => setEvent(e.target.value)} />
             <br /><br />
@@ -152,7 +170,7 @@ function EventsT() {
                   <TableRow key={index}>
                     <TableCell>{date}</TableCell>
                     <TableCell>{club}</TableCell>
-                    <TableCell><Button variant='contained' sx={{width:'10em'}} onClick={() => {
+                    <TableCell><Button variant='contained' sx={{ width: '10em' }} onClick={() => {
                       setDetails(element); setFlag('details')
                     }}>{event}</Button></TableCell>
                     <TableCell><Button variant='contained' onClick={() => {

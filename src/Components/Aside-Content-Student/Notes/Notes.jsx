@@ -5,15 +5,21 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import classes from './notes.module.css'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 function Notes() {
 
   useEffect(() => {
+    const token = IsAuth()
     const getValue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`)
-        setData(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setData(response.data.notes)
       } catch (error) {
 
       }
@@ -77,7 +83,7 @@ function Notes() {
             <div>
               <p>Assignment Details:{description}</p>
             </div>
-        </div>
+          </div>
         </div> : ''}
 
 

@@ -9,15 +9,21 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { Textarea } from '@mui/joy'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 
 function AssignmentsT() {
   useEffect(() => {
+    const token = IsAuth()
     const getValue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`)
-        setData(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`, {
+          headers: {
+            "Authorization": `Bearer ${token}`
+          }
+        })
+        setData(response.data.assignments)
       } catch (error) {
 
       }
@@ -53,7 +59,10 @@ function AssignmentsT() {
       formData.append('title', title)
       formData.append('description', description)
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
 
@@ -72,6 +81,10 @@ function AssignmentsT() {
         date: date,
         title: title,
         description: description
+      },{
+        headers:{
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 
@@ -85,7 +98,9 @@ function AssignmentsT() {
       formData.append('date', date)
       formData.append('file', file)
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: { "Content-Type": "multipart/form-data",
+        Authorization: `Bearer ${IsAuth()}`
+      }
       })
     } catch (error) {
 
@@ -95,7 +110,11 @@ function AssignmentsT() {
 
   const deleteAssignment = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/assignments/${id}`,{
+        headers:{
+          Authorization: `Bearer ${IsAuth()}`
+        }
+      })
 
     } catch (error) {
     }

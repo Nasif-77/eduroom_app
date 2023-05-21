@@ -2,6 +2,7 @@ import { Button, ImageList, ImageListItem, List, ListItem, ListItemButton } from
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './photos.module.css'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 function Photos() {
 
@@ -13,10 +14,15 @@ function Photos() {
   const [images, setImages] = useState([])
 
   useEffect(() => {
+    const token = IsAuth()
     const getPhotos = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/photos`)
-        setData(response.data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/photos`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setData(response.data.photos)
       } catch (error) {
       }
     }
@@ -67,8 +73,8 @@ function Photos() {
             <ImageList
               sx={{ width: 'auto', height: 'auto' }}
               variant='quilted'
-              cols={2} 
-              >
+              cols={2}
+            >
 
               {images.map((item, index) => {
                 return (

@@ -8,6 +8,7 @@ import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { Textarea } from '@mui/joy'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 
@@ -16,9 +17,14 @@ import { Textarea } from '@mui/joy'
 function NotesT() {
 
   useEffect(() => {
+    const token = IsAuth()
     const getValue = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
         setData(response.data)
       } catch (error) {
 
@@ -51,7 +57,10 @@ function NotesT() {
       formData.append('description', description)
       formData.append('file', file)
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
 
@@ -66,6 +75,10 @@ function NotesT() {
         title: title,
         description: description,
         date: date
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 
@@ -78,7 +91,10 @@ function NotesT() {
       formData.append('date', date)
       formData.append('file', file)
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 
@@ -88,7 +104,11 @@ function NotesT() {
 
   const deleteNotes = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
+      })
 
     } catch (error) {
     }

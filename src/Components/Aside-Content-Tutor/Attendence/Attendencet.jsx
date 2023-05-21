@@ -7,6 +7,7 @@ import axios from 'axios';
 import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/material';
 import { Checkbox } from '@mui/joy';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
+import { IsAuth } from '../../../Helpers/hooks/isAuth';
 
 function AttendenceT() {
 
@@ -20,18 +21,27 @@ function AttendenceT() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const getStudents = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
-        setStudent(response.data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setStudent(response.data.students)
       } catch (error) {
       }
     }
 
     const getAbsentees = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
-        setData(response.data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setData(response.data.absentees)
       } catch (error) {
       }
     }

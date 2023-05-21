@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import classes from './photos.module.css'
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
+import { IsAuth } from '../../../Helpers/hooks/isAuth';
 function PhotosT() {
 
   const [files, setFiles] = useState([])
@@ -39,9 +40,14 @@ function PhotosT() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const getValues = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
         setData(response.data)
       } catch (error) {
       }
@@ -60,7 +66,10 @@ function PhotosT() {
         formData.append('files', files[i])
       }
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
     } catch (error) {
@@ -78,7 +87,10 @@ function PhotosT() {
       }
 
       await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" }
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
     } catch (error) {
@@ -92,6 +104,10 @@ function PhotosT() {
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         filePath: imagePath,
         fileName: imageName
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
     }
@@ -103,6 +119,10 @@ function PhotosT() {
     try {
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         subject: subject
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
 
     } catch (error) {
@@ -114,7 +134,11 @@ function PhotosT() {
 
   const deleteSubject = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
+      })
     } catch (error) {
     }
   }

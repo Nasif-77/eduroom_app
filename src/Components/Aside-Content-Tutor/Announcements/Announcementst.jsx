@@ -3,6 +3,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow, TextField } f
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import classes from './announcement.module.css'
+import { IsAuth } from '../../../Helpers/hooks/isAuth';
 
 
 function AnnouncementsT() {
@@ -17,9 +18,14 @@ function AnnouncementsT() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const getValue = async () => {
-      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`)
-      setData(response.data)
+      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      setData(response.data.announcements)
     }
     getValue()
   }, [])
@@ -41,7 +47,10 @@ function AnnouncementsT() {
       formdata.append('date', date)
 
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, formdata, {
-        headers: { 'Content-Type': "multipart/form-data" }
+        headers: {
+          'Content-Type': "multipart/form-data",
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
     }
@@ -56,6 +65,10 @@ function AnnouncementsT() {
         date: date,
         description: description,
         id: id
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 
@@ -65,7 +78,11 @@ function AnnouncementsT() {
 
   const deleteAnnouncement = async () => {
     try {
-      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`)
+      await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
+      })
 
     } catch (error) {
     }

@@ -8,6 +8,8 @@ import './calender.css'
 import { Button } from '@mui/material'
 import AssessmentIcon from '@mui/icons-material/Assessment';
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
+import jwtDecode from 'jwt-decode'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 function Attendence() {
 
@@ -16,10 +18,9 @@ function Attendence() {
   let [absentDays, setAbsentDays] = useState('Present');
   const [flag, setFlag] = useState('home');
   const [datee, setDate] = useState(new Date());
-  let totalAbsent= useRef(0)
+  let totalAbsent = useRef(0)
 
 
-  let storage = JSON.parse(localStorage.getItem('user'))
   let name = user.fname
   if (name !== undefined) {
     name = name.charAt(0).toUpperCase()
@@ -30,28 +31,40 @@ function Attendence() {
 
 
   useEffect(() => {
-
-
+    const authToken = IsAuth()
+    let token = jwtDecode(authToken)
     const getAbsentees = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`)
-        setAbsentees(response.data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/attendence`, {
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        })
+        setAbsentees(response.data.absentees)
       } catch (error) {
       }
     }
 
     const getProfile = async () => {
-      let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
-        params: {
-          id: storage.aud
-        }
-      })
-      setUser(response.data)
+      try {
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
+          params: {
+            id: token.aud
+          },
+          headers: {
+            Authorization: `Bearer ${authToken}`
+          }
+        })
+        setUser(response.data.user)
+      } catch (error) {
+
+      }
+
     }
     getProfile()
     getAbsentees();
 
-  }, [storage.aud])
+  }, [])
 
 
 
@@ -63,14 +76,14 @@ function Attendence() {
         absentees.forEach((absentee) => {
           absentee.absentees.selectedRows.forEach((student) => {
             if (student === name) {
-              totalAbsent.current +=1;
+              totalAbsent.current += 1;
             }
           })
         })
       }
     }
     getAttendence()
-  },[absentees,name]
+  }, [absentees, name]
   )
 
 
@@ -169,8 +182,8 @@ function Attendence() {
         <Button
           onClick={() => setFlag('home')}>Back</Button>
 
-        <h3>Total number of absent days:{totalAbsent.current/2}</h3>
-        <h3>Maximum number of present days this month:{DMonth - totalAbsent.current/2}</h3>
+        <h3>Total number of absent days:{totalAbsent.current / 2}</h3>
+        <h3>Maximum number of present days this month:{DMonth - totalAbsent.current / 2}</h3>
 
       </div> : ''}
 

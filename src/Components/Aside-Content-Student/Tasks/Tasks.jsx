@@ -6,22 +6,33 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import classes from './tasks.module.css'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
+import { IsAuth } from '../../../Helpers/hooks/isAuth';
 
 
 function Tasks() {
   useEffect(() => {
+    const token = IsAuth()
+
     const getAssignments = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`)
-        setAssignment(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setAssignment(response.data.assignments)
       } catch (error) {
 
       }
     }
     const getNotes = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`)
-        setNotes(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setNotes(response.data.notes)
       } catch (error) {
 
       }

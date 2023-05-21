@@ -4,6 +4,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './home.module.css'
 import Grid from '@mui/material/Unstable_Grid2'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 function Home() {
 
@@ -19,19 +20,27 @@ function Home() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const getEvent = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`)
-        setEvent(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setEvent(response.data.events)
       } catch (error) {
 
       }
     }
     let getAnnouncement = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`)
-        let data = response.data
-        setAnnounce(data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setAnnounce(response.data.announcements)
       } catch (error) {
       }
 

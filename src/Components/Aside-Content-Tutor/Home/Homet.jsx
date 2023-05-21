@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom'
 import classes from './home.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Grid from '@mui/material/Unstable_Grid2'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 function HomeT() {
@@ -23,21 +24,30 @@ function HomeT() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const getStudents = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
-        let data = response.data
-        setStudents(data.length)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setStudents(response.data.students.length)
       } catch (error) {
+        console.log(error)
       }
     }
 
     const getEvent = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`)
-        setEvent(response.data)
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setEvent(response.data.events)
       } catch (error) {
-
+        
       }
     }
 

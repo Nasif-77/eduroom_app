@@ -7,6 +7,8 @@ import classes from './profile.module.css'
 import EditIcon from '@mui/icons-material/Edit';
 import { useFormik } from 'formik'
 import * as Yup from 'yup';
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import jwtDecode from 'jwt-decode'
 
 
 
@@ -18,7 +20,7 @@ function Profile() {
   const [id, setId] = useState('');
 
 
-  let storage = JSON.parse(localStorage.getItem('user'))
+
 
   let name = user.fname
   if (name !== undefined) {
@@ -29,15 +31,19 @@ function Profile() {
 
 
   useEffect(() => {
-
+    const token = IsAuth()
+    const decodedToken = jwtDecode(token)
     const getProfile = async () => {
       let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
         params: {
-          id: storage.aud
+          id: decodedToken.aud
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
       })
-      setUser(response.data)
-      setId(response.data._id)
+      setUser(response.data.user)
+      setId(response.data.user._id)
     }
     getProfile()
   })
@@ -73,11 +79,16 @@ function Profile() {
   })
 
   const updateProfile = async () => {
+    const token = IsAuth()
     try {
       await axios.put(`${process.env.REACT_APP_SERVER_URL}/student/home/profile/${id}`, {
         name: formik.values.fname,
         contact: formik.values.contact,
         email: formik.values.email
+      }, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
       })
 
     } catch (error) {

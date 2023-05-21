@@ -27,9 +27,10 @@ function LoginStudent() {
   };
 
   useEffect(() => {
-    let auth = JSON.parse(localStorage.getItem('user'))
+    let auth = localStorage.getItem('token')
     if (auth) {
-      if (auth.position === 'student')
+      const token = jwtDecode(auth)
+      if (token.position === 'student')
         navigate('/student/home')
     }
   })
@@ -49,22 +50,24 @@ function LoginStudent() {
       let result = await axios.post(`${process.env.REACT_APP_SERVER_URL}/student/login`, { email: fieldEmail, password }
       )
 
-      console.log(result)
+      if (result.status === 200) {
+        Setlogin('')
+        localStorage.setItem('token',result.data.token)
+        navigate('/student/home')
+      }
 
-      if (result.message === false || result.message === 'password') {
+
+
+    } catch (error) {
+
+      if (error.response.status === 400) {
         e.preventDefault()
         Setlogin('Please enter correct details')
       }
-      else if (result.message === 'tutor') {
-        e.preventDefault()
-        Setlogin('You are not a student')
-      }
-      else if (result.message === 'blocked') {
+      else if (error.response.status === 401) {
         e.preventDefault()
         toast.error("Your account is blocked!");
       }
-    } catch (error) {
-      // console.log(error)
     }
 
 

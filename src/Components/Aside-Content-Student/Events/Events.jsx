@@ -2,6 +2,7 @@ import axios from 'axios'
 import classes from './events.module.css'
 import React, { useEffect, useState } from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableContainer, TableRow } from '@mui/material'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 
@@ -17,10 +18,15 @@ function Events() {
 
 
     useEffect(() => {
+        const token = IsAuth()
         const getValue = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`)
-                setData(response.data)
+                const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                })
+                setData(response.data.events)
             } catch (error) {
 
             }
@@ -66,7 +72,7 @@ function Events() {
                         </Table>
                     </TableContainer>
                 </div> : ''}
-                
+
                 {flag === 'details' ? <div>
                     <Button onClick={() => setFlag('home')}>Back</Button>
                     <h2>Event:{details.event}</h2>
@@ -74,8 +80,8 @@ function Events() {
                     <h5>Date:{details.date}</h5>
                     <p>Description:{details.description}</p>
                 </div> : ''}
-                
-                
+
+
             </div>
 
         </div>

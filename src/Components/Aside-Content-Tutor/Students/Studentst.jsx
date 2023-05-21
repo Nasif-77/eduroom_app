@@ -7,6 +7,7 @@ import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import classes from './students.module.css'
 import StudentProfile from './StudentProfile'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 function StudentsT() {
 
@@ -33,11 +34,15 @@ function StudentsT() {
 
 
   useEffect(() => {
+    const token = IsAuth()
     const fetchValue = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`)
-        let data = response.data
-        setStudents(data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        })
+        setStudents(response.data.students)
       } catch (error) {
       }
     }
@@ -48,6 +53,10 @@ function StudentsT() {
     try {
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students/${id}`, {
         blocked: blocked
+      }, {
+        headers: {
+          Authorization: `Bearer ${IsAuth()}`
+        }
       })
     } catch (error) {
 

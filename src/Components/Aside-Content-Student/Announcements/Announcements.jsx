@@ -2,6 +2,7 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/m
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './announcements.module.css'
+import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 function Announcements() {
 
@@ -13,11 +14,15 @@ function Announcements() {
   const [imageUrl, setImageUrl] = useState('home')
 
   useEffect(() => {
+    const token = IsAuth()
     let fetchData = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`)
-        let data = response.data
-        setAnnounce(data)
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`,{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        })
+        setAnnounce(response.data.announcements)
       } catch (error) {
       }
 
@@ -32,7 +37,7 @@ function Announcements() {
       <nav className={classes.nav}>
         <h1>Announcements</h1>
       </nav>
-      
+
       <div className={classes.mainDiv}>
 
 
@@ -55,13 +60,13 @@ function Announcements() {
                     <TableCell>{date}</TableCell>
                     <TableCell>
                       <Button
-                      onClick={()=>{
-                        setFlag('details')
-                        setSubject(subject)
-                        setDate(date)
-                        setDescription(description)
-                        setImageUrl(image)
-                      }}
+                        onClick={() => {
+                          setFlag('details')
+                          setSubject(subject)
+                          setDate(date)
+                          setDescription(description)
+                          setImageUrl(image)
+                        }}
                       >{subject}</Button>
                     </TableCell>
                   </TableRow>)
@@ -71,22 +76,22 @@ function Announcements() {
         </div> : ''}
 
 
-        {flag==='details' ?  <div>
-          <Button onClick={()=>setFlag('home')}>
+        {flag === 'details' ? <div>
+          <Button onClick={() => setFlag('home')}>
             Back
-            </Button>
+          </Button>
+          <div>
+            <h2>Subject:<u>{subject}</u></h2>
+            <h4>Announced Date:{date}</h4>
             <div>
-              <h2>Subject:<u>{subject}</u></h2>
-              <h4>Announced Date:{date}</h4>
-              <div>
-                <p>{description}</p>
-              </div>
-
-              <div>
-              <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}` }alt=""/>
-              </div>
-
+              <p>{description}</p>
             </div>
+
+            <div>
+              <img src={`${process.env.REACT_APP_SERVER_URL}/${imageUrl}`} alt="" />
+            </div>
+
+          </div>
 
         </div> : ''}
 
