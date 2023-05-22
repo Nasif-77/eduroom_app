@@ -9,15 +9,20 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import { Textarea } from '@mui/joy'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 
 
 
 function NotesT() {
+  const navigate = useNavigate()
+  const token = IsAuth()
+
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getValue = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, {
@@ -31,7 +36,7 @@ function NotesT() {
       }
     }
     getValue();
-  }, [])
+  }, [navigate])
 
   const [data, setData] = useState([])
   const [file, setFile] = useState([])
@@ -59,7 +64,7 @@ function NotesT() {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 
@@ -77,7 +82,7 @@ function NotesT() {
         date: date
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -93,7 +98,7 @@ function NotesT() {
       await axios.patch(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -106,7 +111,7 @@ function NotesT() {
     try {
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/notes/${id}`, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 

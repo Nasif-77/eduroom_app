@@ -5,11 +5,16 @@ import { useEffect } from 'react'
 import classes from './assignments.module.css'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 function Assignments() {
+  const navigate = useNavigate()
+
+
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getValue = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`, {
@@ -23,7 +28,7 @@ function Assignments() {
       }
     }
     getValue();
-  }, [])
+  }, [navigate])
 
 
   const [flag, setFlag] = useState('home')

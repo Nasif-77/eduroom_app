@@ -4,9 +4,14 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import classes from './announcement.module.css'
 import { IsAuth } from '../../../Helpers/hooks/isAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 function AnnouncementsT() {
+  const navigate = useNavigate()
+
+  const token = IsAuth()
+
 
   const [subject, setSubject] = useState('');
   const [data, setData] = useState([]);
@@ -19,6 +24,7 @@ function AnnouncementsT() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getValue = async () => {
       let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, {
         headers: {
@@ -28,7 +34,7 @@ function AnnouncementsT() {
       setData(response.data.announcements)
     }
     getValue()
-  }, [])
+  }, [navigate])
 
   let date = Date()
   let month = date.split(' ')[1]
@@ -49,7 +55,7 @@ function AnnouncementsT() {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements`, formdata, {
         headers: {
           'Content-Type': "multipart/form-data",
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -67,7 +73,7 @@ function AnnouncementsT() {
         id: id
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -80,7 +86,7 @@ function AnnouncementsT() {
     try {
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/announcements/${id}`, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 

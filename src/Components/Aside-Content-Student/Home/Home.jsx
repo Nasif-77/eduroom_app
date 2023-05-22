@@ -5,8 +5,10 @@ import React, { useEffect, useState } from 'react'
 import classes from './home.module.css'
 import Grid from '@mui/material/Unstable_Grid2'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 function Home() {
+  const navigate = useNavigate()
 
 
   const [announce, setAnnounce] = useState([])
@@ -20,7 +22,9 @@ function Home() {
 
 
   useEffect(() => {
+    console.log('token')
     const token = IsAuth()
+    if (!token) navigate('/')
     const getEvent = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`, {
@@ -46,7 +50,7 @@ function Home() {
 
     }
     getAnnouncement(); getEvent()
-  }, [])
+  }, [navigate])
 
 
   let date = Date()

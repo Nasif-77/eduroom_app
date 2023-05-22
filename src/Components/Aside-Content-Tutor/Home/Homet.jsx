@@ -3,7 +3,7 @@ import axios from 'axios'
 import React from 'react'
 import { useEffect } from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './home.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import Grid from '@mui/material/Unstable_Grid2'
@@ -11,6 +11,7 @@ import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
 
 function HomeT() {
+  const navigate = useNavigate()
 
   const [time, setTime] = useState('')
   const [students, setStudents] = useState('')
@@ -25,6 +26,7 @@ function HomeT() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getStudents = async () => {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
@@ -47,13 +49,13 @@ function HomeT() {
         })
         setEvent(response.data.events)
       } catch (error) {
-        
+
       }
     }
 
     getStudents()
     getEvent()
-  }, [])
+  }, [navigate])
 
 
   let date = Date()

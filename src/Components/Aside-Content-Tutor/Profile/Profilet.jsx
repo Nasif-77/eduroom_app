@@ -8,8 +8,11 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { IsAuth } from '../../../Helpers/hooks/isAuth';
 import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
 
 function ProfileT() {
+  const navigate = useNavigate()
+  let token = IsAuth()
 
   const [flag, setFlag] = useState('home')
   const [user, setUser] = useState({})
@@ -33,6 +36,7 @@ function ProfileT() {
 
   useEffect(() => {
     let token = IsAuth()
+    if (!token) navigate('/')
     const profile = jwtDecode(token)
     const getProfile = async () => {
       let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/profile`, {
@@ -46,7 +50,7 @@ function ProfileT() {
       setId(response.data.user._id)
     };
     getProfile()
-  })
+  },[navigate])
 
 
 
@@ -59,7 +63,7 @@ function ProfileT() {
         email: fieldEmail
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 

@@ -3,10 +3,12 @@ import classes from './events.module.css'
 import React, { useEffect, useState } from 'react'
 import { Button, Table, TableBody, TableCell, TableHead, TableContainer, TableRow } from '@mui/material'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Events() {
+    const navigate = useNavigate()
 
 
     const [data, setData] = useState([])
@@ -19,6 +21,7 @@ function Events() {
 
     useEffect(() => {
         const token = IsAuth()
+        if (!token) navigate('/')
         const getValue = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/events`, {
@@ -32,7 +35,7 @@ function Events() {
             }
         }
         getValue();
-    }, [])
+    }, [navigate])
 
 
 

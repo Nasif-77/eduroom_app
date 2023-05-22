@@ -8,9 +8,13 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { useEffect } from 'react'
 import { Textarea } from '@mui/joy'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 function EventsT() {
+  const navigate = useNavigate()
+  const token = IsAuth()
+
 
   const [event, setEvent] = useState('')
   const [club, setClub] = useState('')
@@ -29,7 +33,7 @@ function EventsT() {
   useEffect(() => {
     const getValue = async () => {
       const token = IsAuth()
-
+      if (!token) navigate('/')
       try {
         setDate(date.$d.toDateString().slice(4, 15))
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events`, {
@@ -43,7 +47,7 @@ function EventsT() {
       }
     }
     getValue();
-  })
+  },[navigate,date])
 
 
   const handleChange = (newValue) => {
@@ -62,7 +66,7 @@ function EventsT() {
         date: date
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -82,7 +86,7 @@ function EventsT() {
         id: id
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -96,7 +100,7 @@ function EventsT() {
     try {
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/events/${id}`, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 

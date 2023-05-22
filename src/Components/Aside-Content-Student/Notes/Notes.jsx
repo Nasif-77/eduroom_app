@@ -6,12 +6,16 @@ import { useState } from 'react'
 import classes from './notes.module.css'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 
 function Notes() {
+  const navigate = useNavigate()
+
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getValue = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/notes`, {
@@ -25,7 +29,7 @@ function Notes() {
       }
     }
     getValue();
-  }, [])
+  }, [navigate])
 
   const [data, setData] = useState([])
   const [title, setTitle] = useState('')

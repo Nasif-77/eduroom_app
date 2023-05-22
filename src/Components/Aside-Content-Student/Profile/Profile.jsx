@@ -9,10 +9,14 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup';
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
 import jwtDecode from 'jwt-decode'
+import { useNavigate } from 'react-router-dom'
 
 
 
 function Profile() {
+  const navigate = useNavigate()
+
+  const token = IsAuth()
 
 
   const [flag, setFlag] = useState('home')
@@ -32,6 +36,7 @@ function Profile() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const decodedToken = jwtDecode(token)
     const getProfile = async () => {
       let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/profile`, {
@@ -46,7 +51,7 @@ function Profile() {
       setId(response.data.user._id)
     }
     getProfile()
-  })
+  },[navigate])
 
   const validationSchema = Yup.object({
     fname: Yup
@@ -79,7 +84,6 @@ function Profile() {
   })
 
   const updateProfile = async () => {
-    const token = IsAuth()
     try {
       await axios.put(`${process.env.REACT_APP_SERVER_URL}/student/home/profile/${id}`, {
         name: formik.values.fname,

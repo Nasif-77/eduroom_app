@@ -1,19 +1,23 @@
 import React, { useState } from 'react'
 import jwtDecode from 'jwt-decode';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './header.module.css'
 import DehazeIcon from '@mui/icons-material/Dehaze';
 import Sidebar from './Sidebar';
 import { Dialog, DialogActions, DialogTitle, Drawer, IconButton, Button } from '@mui/material';
 import Box from '@mui/material/Box';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
+import { useEffect } from 'react';
+import { IsAuth } from '../../Helpers/hooks/isAuth';
 
 
 
 function Header() {
+  const navigate = useNavigate()
 
 
   const [open, setOpen] = useState(false);
+  const [name, setName] = useState('');
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,13 +27,20 @@ function Header() {
     setOpen(false);
   };
 
+  useEffect(() => {
+    const token = IsAuth()
+    if (!token) navigate('/')
+    else {
+      let user = jwtDecode(token)
+      let name = user.name
+      setName(name.toUpperCase()
+      )
+    }
+
+  }, [navigate])
 
   const [drawer, setDrawer] = useState(false)
 
-  let token = localStorage.getItem('token')
-  let user = jwtDecode(token)
-  let name = user.name
-  name = name.toUpperCase()
 
 
 

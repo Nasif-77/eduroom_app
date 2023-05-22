@@ -5,7 +5,13 @@ import { useState } from 'react';
 import classes from './photos.module.css'
 import AddPhotoAlternateRoundedIcon from '@mui/icons-material/AddPhotoAlternateRounded';
 import { IsAuth } from '../../../Helpers/hooks/isAuth';
+import { useNavigate } from 'react-router-dom';
+
+
 function PhotosT() {
+  const navigate = useNavigate()
+  const token = IsAuth()
+
 
   const [files, setFiles] = useState([])
   const [subject, setSubject] = useState('')
@@ -41,6 +47,7 @@ function PhotosT() {
 
   useEffect(() => {
     const token = IsAuth()
+    if(!token)navigate('/')
     const getValues = async () => {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, {
@@ -53,7 +60,7 @@ function PhotosT() {
       }
     }
     getValues();
-  }, [])
+  }, [navigate])
 
 
 
@@ -68,7 +75,7 @@ function PhotosT() {
       await axios.post(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 
@@ -89,7 +96,7 @@ function PhotosT() {
       await axios.put(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 
@@ -106,7 +113,7 @@ function PhotosT() {
         fileName: imageName
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {
@@ -121,7 +128,7 @@ function PhotosT() {
         subject: subject
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
 
@@ -136,7 +143,7 @@ function PhotosT() {
     try {
       await axios.delete(`${process.env.REACT_APP_SERVER_URL}/tutor/home/photos/${id}`, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {

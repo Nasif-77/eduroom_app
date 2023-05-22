@@ -10,8 +10,11 @@ import AssessmentIcon from '@mui/icons-material/Assessment';
 import Grid from '@mui/material/Unstable_Grid2/Grid2'
 import jwtDecode from 'jwt-decode'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 function Attendence() {
+  const navigate = useNavigate()
+
 
   const [user, setUser] = useState({})
   const [absentees, setAbsentees] = useState([]);
@@ -32,6 +35,7 @@ function Attendence() {
 
   useEffect(() => {
     const authToken = IsAuth()
+    if (!authToken) navigate('/')
     let token = jwtDecode(authToken)
     const getAbsentees = async () => {
       try {
@@ -64,7 +68,7 @@ function Attendence() {
     getProfile()
     getAbsentees();
 
-  }, [])
+  }, [navigate])
 
 
 

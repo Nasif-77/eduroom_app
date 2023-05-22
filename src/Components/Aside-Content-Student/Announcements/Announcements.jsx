@@ -3,9 +3,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './announcements.module.css'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 function Announcements() {
-
+  const navigate = useNavigate()
   const [announce, setAnnounce] = useState([])
   const [flag, setFlag] = useState('home')
   const [subject, setSubject] = useState('')
@@ -15,11 +16,12 @@ function Announcements() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     let fetchData = async () => {
       try {
-        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`,{
-          headers:{
-            Authorization:`Bearer ${token}`
+        let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/announcements`, {
+          headers: {
+            Authorization: `Bearer ${token}`
           }
         })
         setAnnounce(response.data.announcements)

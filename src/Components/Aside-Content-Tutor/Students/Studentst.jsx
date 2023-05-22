@@ -4,12 +4,16 @@ import {
 } from '@mui/material'
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import classes from './students.module.css'
 import StudentProfile from './StudentProfile'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
 
+
 function StudentsT() {
+  const navigate = useNavigate()
+  const token = IsAuth()
+
 
   const [students, setStudents] = useState([])
   const [profile, setProfile] = useState([])
@@ -35,6 +39,7 @@ function StudentsT() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const fetchValue = async () => {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
@@ -47,7 +52,7 @@ function StudentsT() {
       }
     }
     fetchValue()
-  }, [])
+  }, [navigate])
 
   const blockStudent = async () => {
     try {
@@ -55,7 +60,7 @@ function StudentsT() {
         blocked: blocked
       }, {
         headers: {
-          Authorization: `Bearer ${IsAuth()}`
+          Authorization: `Bearer ${token}`
         }
       })
     } catch (error) {

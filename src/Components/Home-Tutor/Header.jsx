@@ -7,13 +7,18 @@ import { Button, Drawer, Dialog, DialogActions, DialogTitle, IconButton } from '
 import Box from '@mui/material/Box';
 import PowerSettingsNewIcon from '@mui/icons-material/PowerSettingsNew';
 import jwtDecode from 'jwt-decode';
+import { useNavigate } from 'react-router-dom';
+import { IsAuth } from '../../Helpers/hooks/isAuth';
 
 
 
 function Header() {
+  const navigate = useNavigate()
 
   const [open, setOpen] = useState(false);
   const [greet, setGreet] = useState('hello');
+  const [name, setName] = useState('');
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -28,30 +33,35 @@ function Header() {
   let time = Date()
   time = time.split(' ')
   time = time[4]
-  let hour = time.toString().slice(0,2)
+  let hour = time.toString().slice(0, 2)
 
-  const functionGreet = (hour)=>{
-    if(hour>5&&hour<12){
+  const functionGreet = (hour) => {
+    if (hour > 5 && hour < 12) {
       setGreet('Good Morning')
     }
-    else if(hour>12&&hour<15){
+    else if (hour > 12 && hour < 15) {
       setGreet('Good Afternoon')
-    }else{
+    } else {
       setGreet('Good Evening')
     }
 
   }
-  
-useEffect(()=>{
-  functionGreet(hour)
-})
-  
+
+  useEffect(() => {
+    const token = IsAuth()
+    if (!token) navigate('/')
+    else {
+      let user = jwtDecode(token)
+      let name = user.name
+      setName(name.toUpperCase()
+      )
+    }
+    functionGreet(hour)
+  }, [navigate,hour])
 
 
-  const token = localStorage.getItem('token')
-  const user = jwtDecode(token)
-  let fullname = user.name
-  fullname = fullname.toUpperCase()
+
+
 
   const logout = () => {
     localStorage.removeItem('token')
@@ -64,8 +74,8 @@ useEffect(()=>{
 
         <DehazeIcon onClick={() => { setDrawer(true) }} fontSize='medium' className={classes.DehazeIcon} />
 
-        <h1>{greet} <Link to={'profile'}><span style={{ color: 'rgb(210, 238, 210)', fontFamily: 'monospace', fontSize: 30 }}>{fullname}</span></Link></h1>
-        
+        <h1>{greet} <Link to={'profile'}><span style={{ color: 'rgb(210, 238, 210)', fontFamily: 'monospace', fontSize: 30 }}>{name}</span></Link></h1>
+
 
       </div>
 

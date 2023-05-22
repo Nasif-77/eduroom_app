@@ -3,8 +3,10 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import classes from './photos.module.css'
 import { IsAuth } from '../../../Helpers/hooks/isAuth'
+import { useNavigate } from 'react-router-dom'
 
 function Photos() {
+  const navigate = useNavigate()
 
 
 
@@ -15,6 +17,7 @@ function Photos() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getPhotos = async () => {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/photos`, {
@@ -27,7 +30,7 @@ function Photos() {
       }
     }
     getPhotos();
-  }, [])
+  }, [navigate])
   return (
     <div className={classes.container}>
       <nav className={classes.nav}>

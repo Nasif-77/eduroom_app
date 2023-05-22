@@ -7,12 +7,15 @@ import { useEffect } from 'react';
 import classes from './tasks.module.css'
 import PictureAsPdfIcon from '@mui/icons-material/PictureAsPdf';
 import { IsAuth } from '../../../Helpers/hooks/isAuth';
+import { useNavigate } from 'react-router-dom';
 
 
 function Tasks() {
+  const navigate = useNavigate()
+
   useEffect(() => {
     const token = IsAuth()
-
+    if (!token) navigate('/')
     const getAssignments = async () => {
       try {
         const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/student/home/assignments`, {
@@ -39,7 +42,7 @@ function Tasks() {
     }
     getAssignments();
     getNotes();
-  }, [])
+  }, [navigate])
 
 
   const [assignment, setAssignment] = useState([])

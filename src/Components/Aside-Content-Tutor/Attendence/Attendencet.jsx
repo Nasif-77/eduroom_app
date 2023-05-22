@@ -8,8 +8,11 @@ import { Button, Table, TableBody, TableCell, TableHead, TableRow } from '@mui/m
 import { Checkbox } from '@mui/joy';
 import Grid from '@mui/material/Unstable_Grid2/Grid2';
 import { IsAuth } from '../../../Helpers/hooks/isAuth';
+import { useNavigate } from 'react-router-dom';
 
 function AttendenceT() {
+  const navigate = useNavigate()
+
 
   const [data, setData] = useState([])
   const [student, setStudent] = useState([])
@@ -22,6 +25,7 @@ function AttendenceT() {
 
   useEffect(() => {
     const token = IsAuth()
+    if (!token) navigate('/')
     const getStudents = async () => {
       try {
         let response = await axios.get(`${process.env.REACT_APP_SERVER_URL}/tutor/home/students`, {
@@ -47,7 +51,7 @@ function AttendenceT() {
     }
     getStudents();
     getAbsentees();
-  }, [])
+  }, [navigate])
 
 
 

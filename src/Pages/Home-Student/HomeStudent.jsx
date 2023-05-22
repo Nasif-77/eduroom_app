@@ -10,20 +10,21 @@ function HomeStudent() {
   const location = useLocation();
 
   useEffect(() => {
+    let auth = localStorage.getItem('token')
+    if (!auth) navigate('/')
     if (location.pathname === '/student/home') {
       navigate('/student/home/home')
     }
-    let auth = localStorage.getItem('token')
     if (auth) {
       const token = jwtDecode(auth)
       if (token.position === 'tutor') {
         navigate('/tutor/home/home')
       }
     } else {
-      navigate('/login')
+      navigate('/')
     }
 
-  })
+  }, [navigate,location])
 
   return (
     <div className={classes.mainDiv}>
